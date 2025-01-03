@@ -3,15 +3,15 @@ CFLAGS := -Wall -Wextra -Werror
 LIBFT := libft
 LIBFTCHECK := libcheck/libft.a
  
-SRC := solong.c
+SRC := solong.c hooks.c
 OBJ := $(SRC:.c=.o)
 NAME := solong
 
 all: ${NAME}
-	./$(NAME)
+#	./$(NAME)
 
 ${NAME}: ${OBJ} ${LIBFTCHECK}
-	cc -g $(CFLAGS) ${OBJ} -lmlx -lXext -lX11 -L $(LIBFT) -lft -o $(NAME)
+	cc -g $(CFLAGS) ${OBJ} -lmlx -lXext -lX11 -lm -lz -L $(LIBFT) -lft -o $(NAME)
 
 ${OBJ}: ${SRC}
 	cc -g -c ${CFLAGS} ${SRC}
@@ -34,7 +34,7 @@ fclean: clean
 re: fclean all bonus
 
 val: all
-	@valgrind --leak-check=full --show-leak-kinds=all ./${NAME}
+	@valgrind -s --leak-check=full --show-leak-kinds=all ./${NAME}
 
 fun: all
 	@funcheck ${NAME}
