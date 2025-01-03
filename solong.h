@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/03 14:18:16 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/03 16:03:50 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,40 @@
 # include "libft/libft.h"
 # include "mlx.h"
 
-typedef struct s_data
+typedef struct s_image
 {
 	void	*img;
+	int		type; //player, collectible, passable, unpassable
 	struct s_image	*sprite;
 	int		frame;
 	int		wid_per_frame;
+	int		width;
+	int		heigth;
 	char	*address;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 	int		x;
 	int		y;
-}	t_data;
-
-typedef struct s_image
-{
-	void			*img;
-	int				heigth;
-	int				width;
-	struct s_image	*next;
 }	t_image;
 
 typedef struct s_screen
 {
 	void	*mlx;
 	void	*win;
-	struct s_image	*images;
+	int		width;
+	int		height;
+	struct s_image	**images;
+	struct s_image	*sprites;
 }	t_screen;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+	int	xold;
+	int	yold;
+}	t_player;
 
 /*
 	1	get arg			filename: char*
