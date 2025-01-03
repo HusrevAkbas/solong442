@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/03 13:34:39 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/03 14:13:10 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,19 @@
 */
 void	clean_exit(t_screen *screen)
 {
-	mlx_destroy_window(screen->mlx ,screen->win);
+	if (!screen)
+		return ;
+	if (screen->win)
+		mlx_destroy_window(screen->mlx ,screen->win);
 	mlx_destroy_display(screen->mlx);
+	free(screen->mlx);
 	exit (0);
 }
 int	clean_exit_button(t_screen *screen)
 {
 	mlx_destroy_window(screen->mlx ,screen->win);
 	mlx_destroy_display(screen->mlx);
+	free(screen->mlx);
 	exit (0);
 	//return (0);
 }
