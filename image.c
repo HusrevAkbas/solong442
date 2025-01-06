@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/06 17:25:34 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:48:43 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	set_img_data(&pic);
 	offx = rand() % 32;
 	offy = rand() % 32;
-	ft_printf("ran x %i y %i\n", offx, offy);
 	overwrite(tile, &pic, 384 + offx, 0 + offy); //x : 384 - 416, y: 0 - 32
 	return (tile);
 }
@@ -83,7 +82,6 @@ t_image	*new_sprite(t_screen *screen, t_image *tile)
 	sprite->address = mlx_get_data_addr(sprite->img, &sprite->bits_p_px, &sprite->linelen, &sprite->endian);
 	x = 0;
 	y = 0;
-	ft_printf("w%i - h%i\n", tile->width, tile->heigth);
 	while (y < tile->width)
 	{
 		x = 0;
@@ -102,14 +100,9 @@ t_image	*new_sprite(t_screen *screen, t_image *tile)
 
 void	put_images(t_screen *screen)
 {
-	t_image	sprite;
 	t_image	*tile;
 	t_image	*spirit;
-	sprite.img = mlx_xpm_file_to_image(screen->mlx, "assets/Eyemonster.xpm", &sprite.width, &sprite.heigth);
-	if (!sprite.img)
-		return ;
-	sprite.address = mlx_get_data_addr(sprite.img, &sprite.bits_p_px, &sprite.linelen, &sprite.endian);
-	ft_printf("value of x 0 y 0: %c\n", *sprite.address);
+
 	int i = 0;
 	int j = 0;
 	while (screen->map[i])
