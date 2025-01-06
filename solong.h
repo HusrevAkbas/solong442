@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/06 16:30:57 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/06 17:15:43 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SOLONG_H
 # include "libft/libft.h"
 # include "mlx.h"
+# include "math.h"
 
 # define TILE_H	64
 # define TILE_W	64
