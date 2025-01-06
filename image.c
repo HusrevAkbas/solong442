@@ -6,21 +6,34 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/06 13:13:25 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:35:38 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-int	offset(t_image *img, int x, int y)
+char	*get_px_addr(t_image *img, int x, int y)
 {
-	return (y * img->linelen + x * (img->bits_p_px / 8));
+	return (img->address + (y * img->linelen + x * (img->bits_p_px / 8)));
 }
+
+void	get_img_data(t_image *img)
+{
+	img->address = mlx_get_data_addr(img->img, &img->bits_p_px,
+				&img->linelen, &img->endian);
+}
+
+// void	overwrite(t_image *bg, t_image *img)
+// {
+	
+// }
 
 t_image	*new_tile(t_screen *screen, int width, int heigth)
 {
 	t_image	*tile;
-	char	*addr;
+	t_image	pic;
+	char	*add_tile;
+	char	*add_pic;
 	int		x;
 	int		y;
 
@@ -28,7 +41,11 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	tile->img = mlx_new_image(screen->mlx, width, heigth);
 	tile->heigth = heigth;
 	tile->width = width;
-	tile->address = mlx_get_data_addr(tile->img, &tile->bits_p_px, &tile->linelen, &tile->endian);
+	get_img_data(tile);
+	pic.img = mlx_xpm_file_to_image(screen->mlx, "assets/Grass_Dirt_Tile.xpm", &pic.width, &pic.heigth);
+	if (!pic.img)
+		ft_printf("picture couldnt catched\n");
+	pic.address = mlx_get_data_addr(pic.img, &pic.bits_p_px, &pic.linelen, &pic.endian);
 	x = 0;
 	y = 0;
 	while (y < tile->heigth)
@@ -36,8 +53,9 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 		x = 0;
 		while (x < tile->width)
 		{
-			addr = tile->address + offset(tile, x, y);
-			*(unsigned int *)addr = 0x11AAFF22;
+			add_tile = get_px_addr(tile, x, y);
+			add_pic = get_px_addr(&pic, x + 390, y);
+			*(unsigned int *)add_tile = *(unsigned int*)add_pic;
 			x++;
 		}
 		y++;
@@ -45,46 +63,59 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	return (tile);
 }
 
-void	set_images(t_screen *screen)
+t_image	*new_sprite(t_screen *screen, t_image *tile)
+{
+	t_image	*sprite;
+	int		x;
+	int		y;
+	char	*tile_addr;
+	char	*sprite_addr;
+
+	sprite = malloc(sizeof(t_image));
+	sprite->img = mlx_xpm_file_to_image(screen->mlx, "assets/AnimatedAutum.xpm", &sprite->width, &sprite->heigth);
+	sprite->address = mlx_get_data_addr(sprite->img, &sprite->bits_p_px, &sprite->linelen, &sprite->endian);
+	x = 0;
+	y = 0;
+	ft_printf("w%i - h%i\n", tile->width, tile->heigth);
+	while (y < tile->width)
+	{
+		x = 0;
+		while (x < tile->heigth)
+		{
+			tile_addr = get_px_addr(tile, x, y);
+			sprite_addr = get_px_addr(sprite, x, y);
+			if (*sprite_addr != 0)
+				*(unsigned int *)tile_addr = *(unsigned int *)sprite_addr;
+			x++;
+		}
+		y++;
+	}
+	return (tile);
+}
+
+void	put_images(t_screen *screen)
 {
 	t_image	sprite;
-	t_image	background;
 	t_image	*tile;
-	char	*add;
-	char	*add2sp;
-	int		color = 16711680;
-	background.img = mlx_new_image(screen->mlx, 200, 200);
-	background.address = mlx_get_data_addr(background.img, &background.bits_p_px, &background.linelen, &background.endian);
+	t_image	*spirit;
 	sprite.img = mlx_xpm_file_to_image(screen->mlx, "assets/Eyemonster.xpm", &sprite.width, &sprite.heigth);
 	if (!sprite.img)
 		return ;
 	sprite.address = mlx_get_data_addr(sprite.img, &sprite.bits_p_px, &sprite.linelen, &sprite.endian);
 	ft_printf("value of x 0 y 0: %c\n", *sprite.address);
-	int x = 0;
-	int y = 0;
-	while (x < 200)
-	{
-		y = 0;
-		color = 16711680;
-		while (y < 200)
-		{
-			add = background.address + (y * background.linelen + x * (background.bits_p_px / 8));
-			if (y < sprite.heigth)
-			{
-				add2sp = sprite.address + (y * sprite.linelen + x * (sprite.bits_p_px / 8));
-				if (*add2sp == 0 && *(add2sp + sprite.bits_p_px / 8) == 0)
-					*(unsigned int *)add2sp = color;
-			}
-			*(unsigned int *)add = color;
-			y++;
-			color -= 2;
-		}
-		x++;
-	}
 	tile = new_tile(screen, TILE_W, TILE_H);
-	mlx_put_image_to_window(screen->mlx, screen->win, background.img, 0, 0);
-	mlx_put_image_to_window(screen->mlx, screen->win, sprite.img, 0, 0);
-	mlx_put_image_to_window(screen->mlx, screen->win, tile->img, 1, 64);
-	//mlx_destroy_image(screen->mlx ,image.img);
-	//free(image.img);
+	spirit = new_sprite(screen, tile);
+	int i = 0;
+	int j = 0;
+	while (screen->map[i])
+	{
+		j = 0;
+		while (screen->map[i][j])
+		{
+			if (screen->map[i][j] == '1')
+				mlx_put_image_to_window(screen->mlx, screen->win, spirit->img, j * TILE_W, i * TILE_H);
+			j++;
+		}
+		i++;
+	}
 }

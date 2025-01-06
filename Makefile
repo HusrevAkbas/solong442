@@ -7,7 +7,7 @@ SRC := solong.c hooks.c image.c map.c
 OBJ := $(SRC:.c=.o)
 NAME := solong
 
-all: ${NAME}
+all: ${NAME} clean
 	./$(NAME)
 
 ${NAME}: ${OBJ} ${LIBFTCHECK}

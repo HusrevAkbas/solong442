@@ -1,5 +1,5 @@
 /* XPM */
-static char *Grass___Dirt_Tiles[] = {
+static char *Grass_Dirt_Tile[] = {
 /* columns rows colors chars-per-pixel */
 "608 128 12 1 ",
 "  c #25562E",

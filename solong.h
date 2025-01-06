@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/06 13:16:17 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/06 16:30:57 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ typedef struct s_screen
 {
 	void	*mlx;
 	void	*win;
-	int		width;
-	int		height;
+	int		map_w;
+	int		map_h;
 	struct s_image	*images;
-	struct s_image	*sprites;
+	struct s_image	*assets;
 	char	**map;
 }	t_screen;
 
@@ -67,6 +67,7 @@ void	clean_exit(t_screen *args);
 int		clean_exit_button(t_screen *args);
 char	**get_map(void);
 int		run_key_hook(int keycode, t_screen *args);
-void	set_images(t_screen *screen);
+void	put_images(t_screen *screen);
+void	set_map_size(t_screen *screen);
 
 #endif //SOLONG_H
