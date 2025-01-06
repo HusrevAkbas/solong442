@@ -1,5 +1,5 @@
 /* XPM */
-static char *assets_spritesheet_v2_free1735821931[] = {
+static char *assets_spritesheet[] = {
 /* columns rows colors chars-per-pixel */
 "384 384 101 2 ",
 "   c #000303",

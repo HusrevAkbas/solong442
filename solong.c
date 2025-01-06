@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/03 14:22:38 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/06 12:55:17 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,15 @@ int	main(int argc, char **argv)
 	(void) argv;
 	t_screen	screen;
 
+	screen.map = get_map();
 	screen.mlx = mlx_init();
+	int i = 0;
+	while (screen.map[i])
+	{
+		ft_printf("%s\n", screen.map[i]);
+		i++;
+	}
+	
 	if (!screen.mlx)
 		clean_exit(&screen);
 	screen.win = NULL;

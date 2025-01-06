@@ -1,5 +1,5 @@
 /* XPM */
-static char *dirtpath_tiles1735821930[] = {
+static char *pathtiles[] = {
 /* columns rows colors chars-per-pixel */
 "128 128 3 1 ",
 "  c #322B28",

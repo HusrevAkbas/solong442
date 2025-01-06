@@ -1,5 +1,5 @@
 /* XPM */
-static char *Hills_tiles1735821932[] = {
+static char *Hills_tiles[] = {
 /* columns rows colors chars-per-pixel */
 "320 224 10 1 ",
 "  c #341C27",

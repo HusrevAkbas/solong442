@@ -1,5 +1,5 @@
 /* XPM */
-static char *fence_tiles1735821931[] = {
+static char *fence_tiles[] = {
 /* columns rows colors chars-per-pixel */
 "128 128 16 1 ",
 "  c #261F1C",

@@ -1,5 +1,5 @@
 /* XPM */
-static char *Bat_0000_dark1735821930[] = {
+static char *Bat[] = {
 /* columns rows colors chars-per-pixel */
 "1350 900 251 2 ",
 "   c #010101",

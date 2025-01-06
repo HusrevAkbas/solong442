@@ -3,7 +3,7 @@ CFLAGS := -Wall -Wextra -Werror
 LIBFT := libft
 LIBFTCHECK := libcheck/libft.a
  
-SRC := solong.c hooks.c image.c
+SRC := solong.c hooks.c image.c map.c
 OBJ := $(SRC:.c=.o)
 NAME := solong
 
