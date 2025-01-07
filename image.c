@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/06 17:48:43 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/07 13:45:54 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,43 @@ void	overwrite(t_image *bg, t_image *img, int offx, int offy)
 	char	*bg_addr;
 	char	*img_addr;
 
+	if (!bg || !img || !bg->img || !img->img)
+		ft_printf("Something is missing in 'overwrite' func\n");
 	x = 0;
 	y = 0;
-	while (x < bg->width)
+	while (x < bg->width && x < img->width)
 	{
 		y = 0;
-		while (y < bg->heigth)
+		while (y < bg->heigth && y < img->heigth)
 		{
 			bg_addr = get_px_addr(bg, x, y);
 			img_addr = get_px_addr(img, x + offx, y + offy);
+			if (*img_addr)
+				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
+			y++;
+		}
+		x++;
+	}
+}
+
+void	put_image_to_big_pic(t_image *bg, t_image *img, int offx, int offy)
+{
+	int	x;
+	int	y;
+	char	*bg_addr;
+	char	*img_addr;
+
+	if (!bg || !img || !bg->img || !img->img)
+		ft_printf("Something is missing in 'put image to big pic' func\n");
+	x = 0;
+	y = 0;
+	while (x < bg->width && x < img->width)
+	{
+		y = 0;
+		while (y < bg->heigth && y < img->heigth)
+		{
+			bg_addr = get_px_addr(bg, x + offx, y + offy);
+			img_addr = get_px_addr(img, x, y);
 			if (*img_addr)
 				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
 			y++;
@@ -105,6 +133,11 @@ void	put_images(t_screen *screen)
 
 	int i = 0;
 	int j = 0;
+	screen->big_picture = malloc(sizeof(t_image));
+	screen->big_picture->img = mlx_new_image(screen->mlx, TILE_W * screen->map_w, TILE_H * screen->map_h);
+	set_img_data(screen->big_picture);
+	screen->big_picture->heigth = TILE_H * screen->map_h;
+	screen->big_picture->width = TILE_W * screen->map_w;
 	while (screen->map[i])
 	{
 		j = 0;
@@ -112,10 +145,15 @@ void	put_images(t_screen *screen)
 		{
 			tile = new_tile(screen, TILE_W, TILE_H);
 			spirit = new_sprite(screen, tile);
+			put_image_to_big_pic(screen->big_picture, tile, TILE_W * j, TILE_H * i);
 			if (screen->map[i][j] == '1')
+			{
 				mlx_put_image_to_window(screen->mlx, screen->win, spirit->img, j * TILE_W, i * TILE_H);
+			}
 			j++;
 		}
 		i++;
 	}
+	sleep(1);
+	mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
 }

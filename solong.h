@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/06 17:49:05 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:07:59 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef struct s_image
 {
 	void	*img;
 	int		type; //player, collectible, passable, unpassable
-	struct s_image	*sprite;
+	struct s_image	*bg;
+	struct s_image	*fg;
 	int		frame;
 	int		wid_per_frame;
 	int		width;
@@ -43,6 +44,7 @@ typedef struct s_screen
 	void	*win;
 	int		map_w;
 	int		map_h;
+	struct s_image	*big_picture;
 	struct s_image	*images;
 	struct s_image	*assets;
 	char	**map;
@@ -64,11 +66,19 @@ typedef struct s_player
 	5	set event - hooks
 */
 
+//MAP
+char	**get_map(void);
+
+//HOOKS
+int		run_key_hook(int keycode, t_screen *args);
+
+//IMAGE
+void	put_images(t_screen *screen);
+void	set_img_data(t_image *img);
+void	set_map_size(t_screen *screen);
+
+//UTILS
 void	clean_exit(t_screen *args);
 int		clean_exit_button(t_screen *args);
-char	**get_map(void);
-int		run_key_hook(int keycode, t_screen *args);
-void	put_images(t_screen *screen);
-void	set_map_size(t_screen *screen);
 
 #endif //SOLONG_H
