@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 13:45:54 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:22:36 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_image	*new_sprite(t_screen *screen, t_image *tile)
 	char	*sprite_addr;
 
 	sprite = malloc(sizeof(t_image));
-	sprite->img = mlx_xpm_file_to_image(screen->mlx, "assets/AnimatedAutum.xpm", &sprite->width, &sprite->heigth);
+	sprite->img = mlx_xpm_file_to_image(screen->mlx, "assets/AnimatedTree.xpm", &sprite->width, &sprite->heigth);
 	sprite->address = mlx_get_data_addr(sprite->img, &sprite->bits_p_px, &sprite->linelen, &sprite->endian);
 	x = 0;
 	y = 0;
