@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 14:22:36 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/07 16:35:51 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,38 @@ char	*get_px_addr(t_image *img, int x, int y)
 	return (img->address + (y * img->linelen + x * (img->bits_p_px / 8)));
 }
 
-void	set_img_data(t_image *img)
+void	set_img_addr(t_image *img)
 {
 	img->address = mlx_get_data_addr(img->img, &img->bits_p_px,
 				&img->linelen, &img->endian);
+}
+
+void	get_assets(t_screen *screen)
+{
+	t_image	*img;
+	char	*pathmap[9];
+	int		i;
+
+	pathmap[GRASS] = GRASS_PATH;
+	pathmap[TREE] = TREE_PATH;
+	pathmap[FENCE] = FENCE_PATH;
+	pathmap[PEACOCK_FL] = PEACOCK_OP_PATH;
+	pathmap[BUTTERFLY] = BUTTERFLY_PATH;
+	pathmap[EYEMONSTER] = EYEMONSTER_PATH;
+	pathmap[COLLECTION] = COLLECTION_PATH;
+	pathmap[PEACOCK_OP] = PEACOCK_OP_PATH;
+	pathmap[8] = NULL;
+	i = 0;
+	while (i < 8)
+	{
+		img = malloc(sizeof(t_image));
+		img->img = mlx_xpm_file_to_image(screen->mlx, pathmap[i], &img->width, &img->heigth);
+		if (!img->img)
+			clean_exit(screen);
+		set_img_addr(img);
+		screen->assets[i] = img;
+		i++;
+	}
 }
 
 void	overwrite(t_image *bg, t_image *img, int offx, int offy)
@@ -49,7 +77,7 @@ void	overwrite(t_image *bg, t_image *img, int offx, int offy)
 	}
 }
 
-void	put_image_to_big_pic(t_image *bg, t_image *img, int offx, int offy)
+void	put_image_to_big_pic(t_image *bg, t_image *img)
 {
 	int	x;
 	int	y;
@@ -65,7 +93,7 @@ void	put_image_to_big_pic(t_image *bg, t_image *img, int offx, int offy)
 		y = 0;
 		while (y < bg->heigth && y < img->heigth)
 		{
-			bg_addr = get_px_addr(bg, x + offx, y + offy);
+			bg_addr = get_px_addr(bg, x + (TILE_SIZE * img->x), y + (TILE_SIZE * img->y));
 			img_addr = get_px_addr(img, x, y);
 			if (*img_addr)
 				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
@@ -75,10 +103,10 @@ void	put_image_to_big_pic(t_image *bg, t_image *img, int offx, int offy)
 	}
 }
 
-t_image	*new_tile(t_screen *screen, int width, int heigth)
+t_image	*new_bg(t_screen *screen, int width, int heigth)
 {
 	t_image	*tile;
-	t_image	pic;
+	t_image	*pic;
 	int		offx;
 	int		offy;
 
@@ -86,18 +114,29 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	tile->img = mlx_new_image(screen->mlx, width, heigth);
 	tile->heigth = heigth;
 	tile->width = width;
-	set_img_data(tile);
-	pic.img = mlx_xpm_file_to_image(screen->mlx, "assets/Grass_Dirt_Tile.xpm", &pic.width, &pic.heigth);
-	if (!pic.img)
-		ft_printf("picture couldnt catched\n");
-	set_img_data(&pic);
+	set_img_addr(tile);
+	pic = screen->assets[GRASS];
 	offx = rand() % 32;
 	offy = rand() % 32;
-	overwrite(tile, &pic, 384 + offx, 0 + offy); //x : 384 - 416, y: 0 - 32
+	overwrite(tile, pic, 384 + offx, 0 + offy); //x : 384 - 416, y: 0 - 32
 	return (tile);
 }
 
-t_image	*new_sprite(t_screen *screen, t_image *tile)
+t_image	*new_tile(t_screen *screen, int width, int heigth)
+{
+	t_image	*tile;
+
+	tile = malloc(sizeof(t_image));
+	tile->img = mlx_new_image(screen->mlx, width, heigth);
+	tile->heigth = heigth;
+	tile->width = width;
+	set_img_addr(tile);
+	tile->bg = new_bg(screen, width, heigth);
+	overwrite(tile, tile->bg, 0, 0);
+	return (tile);
+}
+
+void	new_sprite(t_screen *screen, t_image *tile)
 {
 	t_image	*sprite;
 	int		x;
@@ -105,9 +144,7 @@ t_image	*new_sprite(t_screen *screen, t_image *tile)
 	char	*tile_addr;
 	char	*sprite_addr;
 
-	sprite = malloc(sizeof(t_image));
-	sprite->img = mlx_xpm_file_to_image(screen->mlx, "assets/AnimatedTree.xpm", &sprite->width, &sprite->heigth);
-	sprite->address = mlx_get_data_addr(sprite->img, &sprite->bits_p_px, &sprite->linelen, &sprite->endian);
+	sprite = screen->assets[tile->asset];
 	x = 0;
 	y = 0;
 	while (y < tile->width)
@@ -123,37 +160,42 @@ t_image	*new_sprite(t_screen *screen, t_image *tile)
 		}
 		y++;
 	}
-	return (tile);
 }
 
 void	put_images(t_screen *screen)
 {
 	t_image	*tile;
-	t_image	*spirit;
 
+	screen->big_picture = malloc(sizeof(t_image));
+	screen->big_picture->img = mlx_new_image(screen->mlx, TILE_SIZE * screen->map_w, TILE_SIZE * screen->map_h);
+	if (!screen->big_picture->img)
+		ft_printf("I can't see the big picture");
+	set_img_addr(screen->big_picture);
+	screen->big_picture->heigth = TILE_SIZE * screen->map_h;
+	screen->big_picture->width = TILE_SIZE * screen->map_w;
+	get_assets(screen);
 	int i = 0;
 	int j = 0;
-	screen->big_picture = malloc(sizeof(t_image));
-	screen->big_picture->img = mlx_new_image(screen->mlx, TILE_W * screen->map_w, TILE_H * screen->map_h);
-	set_img_data(screen->big_picture);
-	screen->big_picture->heigth = TILE_H * screen->map_h;
-	screen->big_picture->width = TILE_W * screen->map_w;
 	while (screen->map[i])
 	{
 		j = 0;
 		while (screen->map[i][j])
 		{
-			tile = new_tile(screen, TILE_W, TILE_H);
-			spirit = new_sprite(screen, tile);
-			put_image_to_big_pic(screen->big_picture, tile, TILE_W * j, TILE_H * i);
+			tile = new_tile(screen, TILE_SIZE, TILE_SIZE);
+			tile->x = j;
+			tile->y = i;
 			if (screen->map[i][j] == '1')
 			{
-				mlx_put_image_to_window(screen->mlx, screen->win, spirit->img, j * TILE_W, i * TILE_H);
+				tile->asset = FENCE;
+				new_sprite(screen, tile);
 			}
+			set_borders(screen, tile);
+			put_image_to_big_pic(screen->big_picture, tile);
+	mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
 			j++;
+			sleep(3);
 		}
 		i++;
 	}
-	sleep(1);
-	mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
+	//mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
 }

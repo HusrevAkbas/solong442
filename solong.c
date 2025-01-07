@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 13:06:08 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/07 14:31:25 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int	main(int argc, char **argv)
 	if (!screen.mlx)
 		clean_exit(&screen);
 	screen.win = NULL;
-	screen.win = mlx_new_window(screen.mlx, TILE_W * (screen.map_w + 1),
-				TILE_H * (screen.map_h + 1), "i like to move it");
+	screen.win = mlx_new_window(screen.mlx, TILE_SIZE * (screen.map_w + 1),
+				TILE_SIZE * (screen.map_h + 1), "i like to move it");
 	if (!screen.win)
 		clean_exit(&screen);
 	put_images(&screen);

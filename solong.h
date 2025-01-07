@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 14:07:59 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/07 16:24:24 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,31 @@
 # include "mlx.h"
 # include "math.h"
 
-# define TILE_H	64
-# define TILE_W	64
+# define TILE_SIZE	64
+# define GRASS		0
+# define GRASS_PATH	"assets/Grass_Dirt_Tile.xpm"
+# define TREE		1
+# define TREE_PATH	"assets/AnimatedTree.xpm"
+# define FENCE		2
+# define FENCE_PATH	"assets/fence_tiles.xpm"
+# define PEACOCK_FL	3
+# define PEACOCK_FL_PATH	"assets/Peacock-folded-tail.xpm"
+# define PEACOCK_OP	4
+# define PEACOCK_OP_PATH	"assets/Peacock-walk.xpm"
+# define BUTTERFLY	5
+# define BUTTERFLY_PATH		"assets/Yellow.xpm"
+# define EYEMONSTER	6
+# define EYEMONSTER_PATH	"assets/Eyemonster.xpm"
+# define COLLECTION	7
+# define COLLECTION_PATH	"assets/christmasicons.xpm"
+
 
 typedef struct s_image
 {
 	void	*img;
 	int		type; //player, collectible, passable, unpassable
 	struct s_image	*bg;
-	struct s_image	*fg;
+	int		asset;
 	int		frame;
 	int		wid_per_frame;
 	int		width;
@@ -46,7 +62,7 @@ typedef struct s_screen
 	int		map_h;
 	struct s_image	*big_picture;
 	struct s_image	*images;
-	struct s_image	*assets;
+	struct s_image	*assets[9];
 	char	**map;
 }	t_screen;
 
@@ -74,7 +90,8 @@ int		run_key_hook(int keycode, t_screen *args);
 
 //IMAGE
 void	put_images(t_screen *screen);
-void	set_img_data(t_image *img);
+void	set_borders(t_screen *screen, t_image *tile);
+void	set_img_addr(t_image *img);
 void	set_map_size(t_screen *screen);
 
 //UTILS
