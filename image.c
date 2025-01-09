@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 16:35:51 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/09 14:20:35 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	get_assets(t_screen *screen)
 	}
 }
 
-void	overwrite(t_image *bg, t_image *img, int offx, int offy)
+void	overwrite(t_image *bg, t_image *img)
 {
 	int	x;
 	int	y;
@@ -62,13 +62,13 @@ void	overwrite(t_image *bg, t_image *img, int offx, int offy)
 		ft_printf("Something is missing in 'overwrite' func\n");
 	x = 0;
 	y = 0;
-	while (x < bg->width && x < img->width)
+	while (x + bg->offx < bg->width && x + img->offx < img->width)
 	{
 		y = 0;
-		while (y < bg->heigth && y < img->heigth)
+		while (y + bg->offy < bg->heigth && y + img->offy < img->heigth)
 		{
-			bg_addr = get_px_addr(bg, x, y);
-			img_addr = get_px_addr(img, x + offx, y + offy);
+			bg_addr = get_px_addr(bg, x + bg->offx, y + bg->offy);
+			img_addr = get_px_addr(img, x + img->offx, y + img->offy);
 			if (*img_addr)
 				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
 			y++;
@@ -107,8 +107,6 @@ t_image	*new_bg(t_screen *screen, int width, int heigth)
 {
 	t_image	*tile;
 	t_image	*pic;
-	int		offx;
-	int		offy;
 
 	tile = malloc(sizeof(t_image));
 	tile->img = mlx_new_image(screen->mlx, width, heigth);
@@ -116,9 +114,9 @@ t_image	*new_bg(t_screen *screen, int width, int heigth)
 	tile->width = width;
 	set_img_addr(tile);
 	pic = screen->assets[GRASS];
-	offx = rand() % 32;
-	offy = rand() % 32;
-	overwrite(tile, pic, 384 + offx, 0 + offy); //x : 384 - 416, y: 0 - 32
+	pic->offx = rand() % 32 + 384;
+	pic->offy = rand() % 32;
+	overwrite(tile, pic); //x : 384 - 416, y: 0 - 32
 	return (tile);
 }
 
@@ -130,9 +128,11 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	tile->img = mlx_new_image(screen->mlx, width, heigth);
 	tile->heigth = heigth;
 	tile->width = width;
+	tile->offx = 0;
+	tile->offy = 0;
 	set_img_addr(tile);
 	tile->bg = new_bg(screen, width, heigth);
-	overwrite(tile, tile->bg, 0, 0);
+	overwrite(tile, tile->bg);
 	return (tile);
 }
 
@@ -147,10 +147,10 @@ void	new_sprite(t_screen *screen, t_image *tile)
 	sprite = screen->assets[tile->asset];
 	x = 0;
 	y = 0;
-	while (y < tile->width)
+	while (y + tile->offy < tile->heigth)
 	{
 		x = 0;
-		while (x < tile->heigth)
+		while (x + tile->offx < tile->width)
 		{
 			tile_addr = get_px_addr(tile, x, y);
 			sprite_addr = get_px_addr(sprite, x, y);
@@ -184,16 +184,14 @@ void	put_images(t_screen *screen)
 			tile = new_tile(screen, TILE_SIZE, TILE_SIZE);
 			tile->x = j;
 			tile->y = i;
-			if (screen->map[i][j] == '1')
-			{
-				tile->asset = FENCE;
-				new_sprite(screen, tile);
-			}
+			tile->asset = TREE;
+			//new_sprite(screen, tile);
+			overwrite(tile, screen->assets[tile->asset]);
 			set_borders(screen, tile);
 			put_image_to_big_pic(screen->big_picture, tile);
 	mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
 			j++;
-			sleep(3);
+			sleep(1);
 		}
 		i++;
 	}

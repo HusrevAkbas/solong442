@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 16:24:24 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/09 14:12:27 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct s_image
 	int		endian;
 	int		x;
 	int		y;
+	int		offx;
+	int		offy;
 	struct s_image	*next;
 }	t_image;
 
@@ -89,6 +91,7 @@ char	**get_map(void);
 int		run_key_hook(int keycode, t_screen *args);
 
 //IMAGE
+void	overwrite(t_image *bg, t_image *img);
 void	put_images(t_screen *screen);
 void	set_borders(t_screen *screen, t_image *tile);
 void	set_img_addr(t_image *img);
