@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/09 14:12:27 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/09 15:27:21 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "mlx.h"
 # include "math.h"
 
-# define TILE_SIZE	64
+# define TILE_SIZE	63
 # define GRASS		0
 # define GRASS_PATH	"assets/Grass_Dirt_Tile.xpm"
 # define TREE		1

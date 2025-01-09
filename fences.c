@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/09 14:21:37 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/09 15:36:54 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,124 @@ void	set_top_left_corner(t_screen *screen, t_image *tile)
 	overwrite(tile, tile->bg);
 	tile->offx = 32;
 	tile->offy = 32;
-	overwrite(tile, screen->assets[tile->asset]);
+	overwrite(tile, asset);
+}
+
+void	set_top_right_corner(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 32;
+	asset->offx = 64;
+	overwrite(tile, asset);
+	tile->offx = 32;
+	tile->offy = 0;
+	tile->bg->offx = 32;
+	tile->bg->offy = 0;
+	overwrite(tile, tile->bg);
+}
+
+void	set_bottom_left_corner(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 32;
+	tile->offy = 0;
+	asset->offx = 0;
+	asset->offy = 64;
+	overwrite(tile, asset);
+	tile->offx = 32;
+	tile->offy = 32;
+	tile->bg->offx = 32;
+	tile->bg->offy = 32;
+	overwrite(tile, tile->bg);
+}
+
+void	set_bottom_right_corner(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 0;
+	asset->offx = 64;
+	asset->offy = 64;
+	overwrite(tile, asset);
+	tile->offx = 32;
+	tile->offy = 0;
+	tile->bg->offx = 32;
+	tile->bg->offy = 0;
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 32;
+	tile->bg->offx = 0;
+	tile->bg->offy = 32;
+	overwrite(tile, tile->bg);
+}
+
+void	set_left_border(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 32;
+	tile->offy = 0;
+	asset->offx = 96;
+	asset->offy = 1;
+	overwrite(tile, asset);
+}
+
+void	set_rigth_border(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 0;
+	asset->offx = 96;
+	asset->offy = 1;
+	overwrite(tile, asset);
+}
+
+void	set_top_border(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 32;
+	asset->offx = 23;
+	asset->offy = 96;
+	overwrite(tile, asset);
+}
+
+void	set_bottom_border(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 0;
+	asset->offx = 8;
+	asset->offy = 96;
+	overwrite(tile, asset);
 }
 
 void	set_borders(t_screen *screen, t_image *tile)
@@ -29,19 +146,19 @@ void	set_borders(t_screen *screen, t_image *tile)
 	if (tile->x == 0 && tile->y == 0)
 		set_top_left_corner(screen, tile);
 	else if (tile->x == screen->map_w - 1 && tile->y == 0)
-		ft_printf("set top right corner\n");
+		set_top_right_corner(screen, tile);
 	else if (tile->x == 0 && tile->y == screen->map_h - 1)
-		ft_printf("set bottom left corner\n");
+		set_bottom_left_corner(screen, tile);
 	else if (tile->x == screen->map_w - 1 && tile->y == screen->map_h - 1)
-		ft_printf("set bottom right corner\n");
+		set_bottom_right_corner(screen, tile);
 	else if (tile->x == 0)
-		ft_printf("set left border\n");
+		set_left_border(screen, tile);
 	else if (tile->x == screen->map_w - 1)
-		ft_printf("set right border\n");
+		set_rigth_border(screen, tile);
 	else if (tile->y == 0)
-		ft_printf("set top border\n");
+		set_top_border(screen, tile);
 	else if (tile->y == screen->map_h - 1)
-		ft_printf("set bottom border\n");
+		set_bottom_border(screen, tile);
 	else
 		ft_printf("somethin else\n");
 }

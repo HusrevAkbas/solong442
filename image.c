@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/09 14:20:35 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/09 15:18:13 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,15 +185,14 @@ void	put_images(t_screen *screen)
 			tile->x = j;
 			tile->y = i;
 			tile->asset = TREE;
-			//new_sprite(screen, tile);
 			overwrite(tile, screen->assets[tile->asset]);
 			set_borders(screen, tile);
 			put_image_to_big_pic(screen->big_picture, tile);
-	mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
+	//mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
+	//sleep(1);
 			j++;
-			sleep(1);
 		}
 		i++;
 	}
-	//mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
+	mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
 }
