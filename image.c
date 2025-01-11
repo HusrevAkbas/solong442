@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/09 15:18:13 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/12 00:20:02 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,15 +184,15 @@ void	put_images(t_screen *screen)
 			tile = new_tile(screen, TILE_SIZE, TILE_SIZE);
 			tile->x = j;
 			tile->y = i;
-			tile->asset = TREE;
-			overwrite(tile, screen->assets[tile->asset]);
-			set_borders(screen, tile);
+			// tile->asset = TREE;
+			// overwrite(tile, screen->assets[tile->asset]);
+			set_tiles(screen, tile);
 			put_image_to_big_pic(screen->big_picture, tile);
-	//mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
-	//sleep(1);
+	mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
+	sleep(1);
 			j++;
 		}
 		i++;
 	}
-	mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
+	//mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
 }

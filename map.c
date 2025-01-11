@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:06 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 13:07:28 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/12 00:15:52 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**get_map(void)
 
 	map = malloc(4 * sizeof(char *));
 	map[0] = "1111";
-	map[1] = "1012";
+	map[1] = "1011";
 	map[2] = "1111";
 	map[3] = NULL;
 	return (map);

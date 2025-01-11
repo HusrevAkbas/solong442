@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:51:33 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/02 11:13:29 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/11 23:38:55 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	check_chars(char *nbr, int *p)
 int	ft_atoi_base(char *nbr, char *base)
 {
 	int	b;
-	int	num_len;
+//	int	num_len;
 	int	res;
 	int	i;
 	int	is_n;
@@ -58,7 +58,7 @@ int	ft_atoi_base(char *nbr, char *base)
 		return (0);
 	i = 0;
 	res = 0;
-	num_len = char_in_str(nbr, '~');
+//	num_len = char_in_str(nbr, '~');
 	b = char_in_str(base, '~');
 	is_n = check_chars(nbr, &i);
 	while (nbr[i])

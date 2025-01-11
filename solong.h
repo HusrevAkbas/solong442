@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   solong.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/09 15:27:21 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/12 00:06:39 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
 # include "libft/libft.h"
-# include "mlx.h"
+//# include "mlx.h"
+# include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
 
 # define TILE_SIZE	63
@@ -93,7 +94,7 @@ int		run_key_hook(int keycode, t_screen *args);
 //IMAGE
 void	overwrite(t_image *bg, t_image *img);
 void	put_images(t_screen *screen);
-void	set_borders(t_screen *screen, t_image *tile);
+void	set_tiles(t_screen *screen, t_image *tile);
 void	set_img_addr(t_image *img);
 void	set_map_size(t_screen *screen);
 

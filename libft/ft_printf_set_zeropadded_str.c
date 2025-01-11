@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_set_zeropadded_str.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 16:23:46 by huakbas           #+#    #+#             */
-/*   Updated: 2024/11/25 15:12:31 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/11 23:46:43 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,10 @@
 char	*ft_set_zeropadded_str(t_flags *flags, char *str)
 {
 	char	*str_new;
-	int		i;
 	size_t	width;
 	size_t	length_str;
 	size_t	length_prefix;
 
-	i = 0;
 	length_str = ft_strlen(str);
 	length_prefix = ft_strlen(flags->prefix);
 	width = flags->width;

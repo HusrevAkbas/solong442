@@ -10,8 +10,11 @@ NAME := solong
 all: ${NAME} clean
 	./$(NAME)
 
-${NAME}: ${OBJ} ${LIBFTCHECK}
-	cc -g $(CFLAGS) ${OBJ} -lmlx -lXext -lX11 -lm -lz -L $(LIBFT) -lft -o $(NAME)
+# ${NAME}: ${OBJ} ${LIBFTCHECK}
+# 	cc -g $(CFLAGS) ${OBJ} -lmlx -lXext -lX11 -lm -lz -L $(LIBFT) -lft -o $(NAME)
+
+$(NAME): $(OBJ) ${LIBFTCHECK} #for WSL2
+	$(CC) $(OBJ) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -L $(LIBFT) -lft -o $(NAME)
 
 ${OBJ}: ${SRC}
 	cc -g -c ${CFLAGS} ${SRC}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fences.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/09 15:36:54 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/12 00:19:28 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,23 @@ void	set_bottom_border(t_screen *screen, t_image *tile)
 	overwrite(tile, asset);
 }
 
-void	set_borders(t_screen *screen, t_image *tile)
+void	set_tree(t_screen *screen, t_image *tile)
 {
+	t_image	*asset;
+
+	tile->asset = TREE;
+	asset = screen->assets[tile->asset];
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 0;
+	asset->offx = 0;
+	asset->offy = 0;
+	overwrite(tile, asset);
+}
+
+void	set_tiles(t_screen *screen, t_image *tile)
+{
+ft_printf("x %i y %i in map %c\n", tile->x, tile->y, screen->map[tile->y][tile->x]);
 	if (tile->x == 0 && tile->y == 0)
 		set_top_left_corner(screen, tile);
 	else if (tile->x == screen->map_w - 1 && tile->y == 0)
@@ -159,6 +174,8 @@ void	set_borders(t_screen *screen, t_image *tile)
 		set_top_border(screen, tile);
 	else if (tile->y == screen->map_h - 1)
 		set_bottom_border(screen, tile);
+	else if (screen->map[tile->y][tile->x] == '1')
+		set_tree(screen, tile);
 	else
 		ft_printf("somethin else\n");
 }
