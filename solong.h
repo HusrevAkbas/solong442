@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   solong.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/12 00:06:39 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/14 15:14:14 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
 # include "libft/libft.h"
-//# include "mlx.h"
-# include "mlx_linux/mlx.h" //for WSL2
+# include "mlx.h"
+// # include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
 
 # define TILE_SIZE	63
@@ -39,11 +39,12 @@
 typedef struct s_image
 {
 	void	*img;
-	int		type; //player, collectible, passable, unpassable
+	int		type; 
 	struct s_image	*bg;
-	int		asset;
+	int		asset;	//player, collectible, passable, unpassable
 	int		frame;
 	int		wid_per_frame;
+	int		hei_per_frame;
 	int		width;
 	int		heigth;
 	char	*address;
@@ -66,6 +67,7 @@ typedef struct s_screen
 	struct s_image	*big_picture;
 	struct s_image	*images;
 	struct s_image	*assets[9];
+	struct s_player	*player;
 	char	**map;
 }	t_screen;
 
@@ -93,6 +95,7 @@ int		run_key_hook(int keycode, t_screen *args);
 
 //IMAGE
 void	overwrite(t_image *bg, t_image *img);
+void	overwrite_asset(t_image *bg, t_image *asset);
 void	put_images(t_screen *screen);
 void	set_tiles(t_screen *screen, t_image *tile);
 void	set_img_addr(t_image *img);

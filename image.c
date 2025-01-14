@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/12 00:20:02 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/14 15:11:50 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,32 @@ void	overwrite(t_image *bg, t_image *img)
 		{
 			bg_addr = get_px_addr(bg, x + bg->offx, y + bg->offy);
 			img_addr = get_px_addr(img, x + img->offx, y + img->offy);
+			if (*img_addr)
+				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
+			y++;
+		}
+		x++;
+	}
+}
+
+void	overwrite_asset(t_image *bg, t_image *asset)
+{
+	int	x;
+	int	y;
+	char	*bg_addr;
+	char	*img_addr;
+
+	if (!bg || !asset || !bg->img || !asset->img)
+		ft_printf("Something is missing in 'overwrite' func\n");
+	x = 0;
+	y = 0;
+	while (x + bg->offx < bg->width && x + asset->offx < asset->wid_per_frame)
+	{
+		y = 0;
+		while (y + bg->offy < bg->heigth && y + asset->offy < asset->hei_per_frame)
+		{
+			bg_addr = get_px_addr(bg, x + bg->offx, y + bg->offy);
+			img_addr = get_px_addr(asset, x + asset->offx, y + asset->offy);
 			if (*img_addr)
 				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
 			y++;
@@ -184,12 +210,10 @@ void	put_images(t_screen *screen)
 			tile = new_tile(screen, TILE_SIZE, TILE_SIZE);
 			tile->x = j;
 			tile->y = i;
-			// tile->asset = TREE;
-			// overwrite(tile, screen->assets[tile->asset]);
 			set_tiles(screen, tile);
 			put_image_to_big_pic(screen->big_picture, tile);
 	mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
-	sleep(1);
+	//sleep(1);
 			j++;
 		}
 		i++;

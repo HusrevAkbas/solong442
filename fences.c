@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fences.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/12 00:19:28 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/14 15:14:39 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,31 @@ void	set_tree(t_screen *screen, t_image *tile)
 	overwrite(tile, asset);
 }
 
+void	set_player(t_screen *screen, t_image *tile)
+{
+	t_image	*player;
+	t_image	*asset;
+
+	player = malloc(sizeof(t_image));
+	player->x = tile->x;
+	player->y = tile->y;
+	player->asset = PEACOCK_FL;
+	asset = screen->assets[player->asset];
+	asset->wid_per_frame = 32;
+	asset->hei_per_frame = 32;
+	asset->offx = 0;
+	asset->offy = 0;
+	tile->offx = 16;
+	tile->offy = 16;
+	overwrite_asset(tile, screen->assets[player->asset]);
+	tile->offx = 48;
+	tile->offy = 0;
+	overwrite(tile, tile->bg);
+	tile->offx = 0;
+	tile->offy = 48;
+	overwrite(tile, tile->bg);
+}
+
 void	set_tiles(t_screen *screen, t_image *tile)
 {
 ft_printf("x %i y %i in map %c\n", tile->x, tile->y, screen->map[tile->y][tile->x]);
@@ -176,6 +201,10 @@ ft_printf("x %i y %i in map %c\n", tile->x, tile->y, screen->map[tile->y][tile->
 		set_bottom_border(screen, tile);
 	else if (screen->map[tile->y][tile->x] == '1')
 		set_tree(screen, tile);
-	else
-		ft_printf("somethin else\n");
+	else if (screen->map[tile->y][tile->x] == 'P')
+		set_player(screen, tile);
+	// else if (screen->map[tile->y][tile->x] == 'C')
+	// 	set_collectible(screen, tile);
+	// else if (screen->map[tile->y][tile->x] == 'E')
+	// 	set_exit_point(screen, tile);
 }
