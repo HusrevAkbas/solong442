@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/14 15:14:14 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/14 20:23:03 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define EYEMONSTER_PATH	"assets/Eyemonster.xpm"
 # define COLLECTION	7
 # define COLLECTION_PATH	"assets/christmasicons.xpm"
+# define FLOWERS	8
+# define FLOWERS_PATH	"assets/flowers.xpm"
 
 
 typedef struct s_image
@@ -44,7 +46,6 @@ typedef struct s_image
 	int		asset;	//player, collectible, passable, unpassable
 	int		frame;
 	int		wid_per_frame;
-	int		hei_per_frame;
 	int		width;
 	int		heigth;
 	char	*address;

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/14 15:11:50 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/14 20:14:46 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	set_img_addr(t_image *img)
 void	get_assets(t_screen *screen)
 {
 	t_image	*img;
-	char	*pathmap[9];
+	char	*pathmap[10];
 	int		i;
 
 	pathmap[GRASS] = GRASS_PATH;
@@ -37,9 +37,10 @@ void	get_assets(t_screen *screen)
 	pathmap[EYEMONSTER] = EYEMONSTER_PATH;
 	pathmap[COLLECTION] = COLLECTION_PATH;
 	pathmap[PEACOCK_OP] = PEACOCK_OP_PATH;
-	pathmap[8] = NULL;
+	pathmap[FLOWERS] = FLOWERS_PATH;
+	pathmap[9] = NULL;
 	i = 0;
-	while (i < 8)
+	while (i < 9)
 	{
 		img = malloc(sizeof(t_image));
 		img->img = mlx_xpm_file_to_image(screen->mlx, pathmap[i], &img->width, &img->heigth);
@@ -79,8 +80,8 @@ void	overwrite(t_image *bg, t_image *img)
 
 void	overwrite_asset(t_image *bg, t_image *asset)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 	char	*bg_addr;
 	char	*img_addr;
 
@@ -88,10 +89,11 @@ void	overwrite_asset(t_image *bg, t_image *asset)
 		ft_printf("Something is missing in 'overwrite' func\n");
 	x = 0;
 	y = 0;
-	while (x + bg->offx < bg->width && x + asset->offx < asset->wid_per_frame)
+ft_printf("whats wrong\n");
+	while (x + bg->offx < bg->width && x + asset->offx < asset->width && x < asset->wid_per_frame)
 	{
 		y = 0;
-		while (y + bg->offy < bg->heigth && y + asset->offy < asset->hei_per_frame)
+		while (y + bg->offy < bg->heigth && y + asset->offy < asset->heigth && y < asset->wid_per_frame)
 		{
 			bg_addr = get_px_addr(bg, x + bg->offx, y + bg->offy);
 			img_addr = get_px_addr(asset, x + asset->offx, y + asset->offy);

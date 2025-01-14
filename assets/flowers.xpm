@@ -1,5 +1,5 @@
 /* XPM */
-static char *decorations[] = {
+static char *flowers[] = {
 /* columns rows colors chars-per-pixel */
 "36 96 25 1 ",
 "  c #1A7A3E",
