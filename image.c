@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 18:09:43 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 20:19:09 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,32 +129,6 @@ void	put_tiles_to_big_pic(t_image *bg, t_image *img)
 	}
 }
 
-// void	put_image_to_big_pic(t_image *bg, t_image *img)
-// {
-// 	int	x;
-// 	int	y;
-// 	char	*bg_addr;
-// 	char	*img_addr;
-
-// 	if (!bg || !img || !bg->img || !img->img)
-// 		ft_printf("Something is missing in 'put image to big pic' func\n");
-// 	x = 0;
-// 	y = 0;
-// 	while (x + bg->offx < bg->width && x + img->offx < img->width && x < img->wid_per_frame)
-// 	{
-// 		y = 0;
-// 		while (y + bg->offy < bg->heigth && y + img->offy < img->heigth && y < img->wid_per_frame)
-// 		{
-// 			bg_addr = get_px_addr(bg, x + (TILE_SIZE * img->x), y + (TILE_SIZE * img->y));
-// 			img_addr = get_px_addr(img, x, y);
-// 			if (*img_addr)
-// 				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
-// 			y++;
-// 		}
-// 		x++;
-// 	}
-// }
-
 t_image	*new_bg(t_screen *screen, int width, int heigth)
 {
 	t_image	*tile;
@@ -188,40 +162,6 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	tile->wid_per_frame = TILE_SIZE;
 	tile->next = NULL;
 	return (tile);
-}
-
-int	animate_tree(t_screen *screen)
-{
-	t_image	*image_list;
-	t_image	*this_img;
-	t_image	*asset;
-	static int		i = 0;
-
-	if (i % 12000 == 0)
-	{
-		ft_printf("i: %d\n", i);
-		image_list = screen->images;
-		this_img = image_list;
-		while (this_img)
-		{
-			asset = screen->assets[this_img->asset];
-			if (this_img->asset == TREE)
-			{
-				if (this_img->frame >= 15)
-					this_img->frame = 0;
-				else
-					this_img->frame++;
-				overwrite(this_img, this_img->bg);
-				asset->offx = this_img->frame * asset->wid_per_frame;
-				overwrite_asset(this_img, asset);
-			}
-			put_tiles_to_big_pic(screen->big_picture, this_img);
-			this_img = this_img->next;
-		}
-		mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
-	}
-	i++;
-	return (i);
 }
 
 void	put_images(t_screen *screen)

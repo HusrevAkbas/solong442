@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 18:08:55 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 20:37:07 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@
 typedef struct s_image
 {
 	void	*img;
-	int		type;
 	struct s_image	*bg;
 	int		asset;	//player, collectible, passable, unpassable
-	int		frame;
+	unsigned int		frame;
 	int		wid_per_frame;
 	int		width;
 	int		heigth;
@@ -56,9 +55,12 @@ typedef struct s_image
 	int		y;
 	int		offx;
 	int		offy;
-	//folded 0: down, 1: rigth, 2: up, 3: left
-	//opened 0: rigth, 1: down, 2: up, 3: left
+	//folded 0: down, 1: right, 2: up, 3: left
+	//opened 0: right, 1: down, 2: up, 3: left
 	int		player_direction;
+	int		px_move;
+	struct s_image	*player_dest;
+	struct s_image	*player_start;
 	struct s_image	*next;
 }	t_image;
 
@@ -83,14 +85,13 @@ typedef struct s_screen
 	5	set event - hooks
 */
 
-//MAP
-char	**get_map(void);
+//ANIMATIONS
+int		animate(t_screen *screen);
+void	animate_tree(t_screen *screen, t_image *image);
+void	move_player(t_screen *screen);
 
 //HOOKS
 int		run_key_hook(int keycode, t_screen *args);
-
-//ANIMATIONS
-int	animate_tree(t_screen *screen);
 
 //IMAGE
 void	overwrite(t_image *bg, t_image *img);
@@ -100,6 +101,9 @@ void	put_images(t_screen *screen);
 void	set_tiles(t_screen *screen, t_image *tile);
 void	set_img_addr(t_image *img);
 void	set_map_size(t_screen *screen);
+
+//MAP
+char	**get_map(void);
 
 //MOVES
 void	move_up(t_screen *screen);

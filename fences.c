@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 16:30:55 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 20:24:43 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void	set_player(t_screen *screen, t_image *tile)
 	player->x = tile->x;
 	player->y = tile->y;
 	player->asset = PEACOCK_FL;
+	player->frame = 0;
 	asset = screen->assets[player->asset];
 	asset->wid_per_frame = 36;
 	player->player_direction = 2;
@@ -160,6 +161,7 @@ void	set_player(t_screen *screen, t_image *tile)
 	asset->offy = 0;
 	tile->offx = 14;
 	tile->offy = 14;
+	player->px_move = 0;
 	screen->player = player;
 	overwrite_asset(tile, asset);
 }
