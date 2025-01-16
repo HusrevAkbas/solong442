@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/07 14:31:25 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 17:09:05 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int argc, char **argv)
 	put_images(&screen);
 	mlx_key_hook(screen.win, &run_key_hook, &screen);
 	mlx_hook(screen.win, 17, 0, clean_exit_button, &screen);
+	mlx_loop_hook(screen.mlx, &animate_tree, &screen);
 	mlx_loop(screen.mlx);
 	clean_exit(&screen);
 	return (0);

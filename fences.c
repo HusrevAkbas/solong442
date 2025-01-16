@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/14 20:22:10 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 16:30:55 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,8 @@ void	set_bottom_left_corner(t_screen *screen, t_image *tile)
 	tile->offy = 0;
 	asset->offx = 0;
 	asset->offy = 64;
-	overwrite(tile, asset);
-	tile->offx = 32;
-	tile->offy = 32;
-	tile->bg->offx = 32;
-	tile->bg->offy = 32;
-	overwrite(tile, tile->bg);
+	asset->wid_per_frame = 32;
+	overwrite_asset(tile, asset);
 }
 
 void	set_bottom_right_corner(t_screen *screen, t_image *tile)
@@ -72,17 +68,8 @@ void	set_bottom_right_corner(t_screen *screen, t_image *tile)
 	tile->offy = 0;
 	asset->offx = 64;
 	asset->offy = 64;
-	overwrite(tile, asset);
-	tile->offx = 32;
-	tile->offy = 0;
-	tile->bg->offx = 32;
-	tile->bg->offy = 0;
-	overwrite(tile, tile->bg);
-	tile->offx = 0;
-	tile->offy = 32;
-	tile->bg->offx = 0;
-	tile->bg->offy = 32;
-	overwrite(tile, tile->bg);
+	asset->wid_per_frame = 32;
+	overwrite_asset(tile, asset);
 }
 
 void	set_left_border(t_screen *screen, t_image *tile)
@@ -146,13 +133,13 @@ void	set_tree(t_screen *screen, t_image *tile)
 	t_image	*asset;
 
 	tile->asset = TREE;
+	tile->frame = 0;
 	asset = screen->assets[tile->asset];
 	overwrite(tile, tile->bg);
 	tile->offx = 0;
-	tile->offy = 0;
+	tile->offy = 2;
 	asset->offx = 0;
 	asset->offy = 0;
-	asset->wid_per_frame = 64;
 	asset->wid_per_frame = 64;
 	overwrite(tile, asset);
 }
@@ -167,19 +154,14 @@ void	set_player(t_screen *screen, t_image *tile)
 	player->y = tile->y;
 	player->asset = PEACOCK_FL;
 	asset = screen->assets[player->asset];
-	asset->wid_per_frame = 32;
-	asset->wid_per_frame = 32;
-	asset->offx = 0;
+	asset->wid_per_frame = 36;
+	player->player_direction = 2;
+	asset->offx = asset->wid_per_frame * player->player_direction;
 	asset->offy = 0;
-	tile->offx = 16;
-	tile->offy = 16;
+	tile->offx = 14;
+	tile->offy = 14;
+	screen->player = player;
 	overwrite_asset(tile, asset);
-	tile->offx = 48;
-	tile->offy = 0;
-	// overwrite(tile, tile->bg);
-	// tile->offx = 0;
-	// tile->offy = 48;
-	// overwrite(tile, tile->bg);
 }
 
 void	set_collectible(t_screen *screen, t_image *tile)
@@ -209,33 +191,29 @@ void	set_exit_point(t_screen *screen, t_image *tile)
 	asset->offy = 96;
 	asset->wid_per_frame = 32;
 	overwrite_asset(tile, asset);
+	//put flowers
 	asset = screen->assets[FLOWERS];
 	asset->wid_per_frame = 12;
-	asset->offx = 0;
+	asset->offx = 0 * asset->wid_per_frame;
 	asset->offy = 2 * asset->wid_per_frame;
 	tile->offx = 12;
 	tile->offy = 0;
 	overwrite_asset(tile, asset);
+	tile->offy = 48;
+	overwrite_asset(tile, asset);
 	tile->offx = 36;
+	overwrite_asset(tile, asset);
 	tile->offy = 0;
 	overwrite_asset(tile, asset);
 	tile->offx = 0;
 	tile->offy = 24;
 	overwrite_asset(tile, asset);
 	tile->offx = 48;
-	tile->offy = 24;
-	overwrite_asset(tile, asset);
-	tile->offx = 12;
-	tile->offy = 48;
-	overwrite_asset(tile, asset);
-	tile->offx = 36;
-	tile->offy = 48;
 	overwrite_asset(tile, asset);
 }
 
 void	set_tiles(t_screen *screen, t_image *tile)
 {
-ft_printf("x %i y %i in map %c\n", tile->x, tile->y, screen->map[tile->y][tile->x]);
 	if (tile->x == 0 && tile->y == 0)
 		set_top_left_corner(screen, tile);
 	else if (tile->x == screen->map_w - 1 && tile->y == 0)

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/14 20:23:03 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 16:39:57 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // # include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
 
-# define TILE_SIZE	63
+# define TILE_SIZE	64
 # define GRASS		0
 # define GRASS_PATH	"assets/Grass_Dirt_Tile.xpm"
 # define TREE		1
@@ -41,7 +41,7 @@
 typedef struct s_image
 {
 	void	*img;
-	int		type; 
+	int		type;
 	struct s_image	*bg;
 	int		asset;	//player, collectible, passable, unpassable
 	int		frame;
@@ -56,6 +56,9 @@ typedef struct s_image
 	int		y;
 	int		offx;
 	int		offy;
+	//folded 0: down, 1: rigth, 2: up, 3: left
+	//opened 0: rigth, 1: down, 2: up, 3: left
+	int		player_direction;
 	struct s_image	*next;
 }	t_image;
 
@@ -68,17 +71,9 @@ typedef struct s_screen
 	struct s_image	*big_picture;
 	struct s_image	*images;
 	struct s_image	*assets[9];
-	struct s_player	*player;
+	struct s_image	*player;
 	char	**map;
 }	t_screen;
-
-typedef struct s_player
-{
-	int	x;
-	int	y;
-	int	xold;
-	int	yold;
-}	t_player;
 
 /*
 	1	get arg			filename: char*
@@ -94,13 +89,20 @@ char	**get_map(void);
 //HOOKS
 int		run_key_hook(int keycode, t_screen *args);
 
+//ANIMATIONS
+int	animate_tree(t_screen *screen);
+
 //IMAGE
 void	overwrite(t_image *bg, t_image *img);
 void	overwrite_asset(t_image *bg, t_image *asset);
+void	put_tiles_to_big_pic(t_image *bg, t_image *img);
 void	put_images(t_screen *screen);
 void	set_tiles(t_screen *screen, t_image *tile);
 void	set_img_addr(t_image *img);
 void	set_map_size(t_screen *screen);
+
+//MOVES
+void	move_up(t_screen *screen);
 
 //UTILS
 void	clean_exit(t_screen *args);

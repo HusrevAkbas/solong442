@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/14 20:14:46 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 17:14:57 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_assets(t_screen *screen)
 	pathmap[GRASS] = GRASS_PATH;
 	pathmap[TREE] = TREE_PATH;
 	pathmap[FENCE] = FENCE_PATH;
-	pathmap[PEACOCK_FL] = PEACOCK_OP_PATH;
+	pathmap[PEACOCK_FL] = PEACOCK_FL_PATH;
 	pathmap[BUTTERFLY] = BUTTERFLY_PATH;
 	pathmap[EYEMONSTER] = EYEMONSTER_PATH;
 	pathmap[COLLECTION] = COLLECTION_PATH;
@@ -61,11 +61,10 @@ void	overwrite(t_image *bg, t_image *img)
 
 	if (!bg || !img || !bg->img || !img->img)
 		ft_printf("Something is missing in 'overwrite' func\n");
-	x = 0;
-	y = 0;
+	x = 1;
 	while (x + bg->offx < bg->width && x + img->offx < img->width)
 	{
-		y = 0;
+		y = 1;
 		while (y + bg->offy < bg->heigth && y + img->offy < img->heigth)
 		{
 			bg_addr = get_px_addr(bg, x + bg->offx, y + bg->offy);
@@ -86,10 +85,9 @@ void	overwrite_asset(t_image *bg, t_image *asset)
 	char	*img_addr;
 
 	if (!bg || !asset || !bg->img || !asset->img)
-		ft_printf("Something is missing in 'overwrite' func\n");
+		ft_printf("Something is missing in 'overwrite_asset' func\n");
 	x = 0;
 	y = 0;
-ft_printf("whats wrong\n");
 	while (x + bg->offx < bg->width && x + asset->offx < asset->width && x < asset->wid_per_frame)
 	{
 		y = 0;
@@ -105,7 +103,7 @@ ft_printf("whats wrong\n");
 	}
 }
 
-void	put_image_to_big_pic(t_image *bg, t_image *img)
+void	put_tiles_to_big_pic(t_image *bg, t_image *img)
 {
 	int	x;
 	int	y;
@@ -116,10 +114,10 @@ void	put_image_to_big_pic(t_image *bg, t_image *img)
 		ft_printf("Something is missing in 'put image to big pic' func\n");
 	x = 0;
 	y = 0;
-	while (x < bg->width && x < img->width)
+	while (x < bg->width && x < img->width && x < img->wid_per_frame)
 	{
 		y = 0;
-		while (y < bg->heigth && y < img->heigth)
+		while (y < bg->heigth && y < img->heigth && y < img->wid_per_frame)
 		{
 			bg_addr = get_px_addr(bg, x + (TILE_SIZE * img->x), y + (TILE_SIZE * img->y));
 			img_addr = get_px_addr(img, x, y);
@@ -130,6 +128,32 @@ void	put_image_to_big_pic(t_image *bg, t_image *img)
 		x++;
 	}
 }
+
+// void	put_image_to_big_pic(t_image *bg, t_image *img)
+// {
+// 	int	x;
+// 	int	y;
+// 	char	*bg_addr;
+// 	char	*img_addr;
+
+// 	if (!bg || !img || !bg->img || !img->img)
+// 		ft_printf("Something is missing in 'put image to big pic' func\n");
+// 	x = 0;
+// 	y = 0;
+// 	while (x + bg->offx < bg->width && x + img->offx < img->width && x < img->wid_per_frame)
+// 	{
+// 		y = 0;
+// 		while (y + bg->offy < bg->heigth && y + img->offy < img->heigth && y < img->wid_per_frame)
+// 		{
+// 			bg_addr = get_px_addr(bg, x + (TILE_SIZE * img->x), y + (TILE_SIZE * img->y));
+// 			img_addr = get_px_addr(img, x, y);
+// 			if (*img_addr)
+// 				*(unsigned int *)bg_addr = *(unsigned int *)img_addr;
+// 			y++;
+// 		}
+// 		x++;
+// 	}
+// }
 
 t_image	*new_bg(t_screen *screen, int width, int heigth)
 {
@@ -161,39 +185,48 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	set_img_addr(tile);
 	tile->bg = new_bg(screen, width, heigth);
 	overwrite(tile, tile->bg);
+	tile->wid_per_frame = TILE_SIZE;
+	tile->next = NULL;
 	return (tile);
 }
 
-void	new_sprite(t_screen *screen, t_image *tile)
+int	animate_tree(t_screen *screen)
 {
-	t_image	*sprite;
-	int		x;
-	int		y;
-	char	*tile_addr;
-	char	*sprite_addr;
+	t_image	*image_list;
+	t_image	*this_img;
+	t_image	*asset;
+	int		i = 0;
 
-	sprite = screen->assets[tile->asset];
-	x = 0;
-	y = 0;
-	while (y + tile->offy < tile->heigth)
+	usleep(100000);
+	image_list = screen->images;
+	this_img = image_list;
+	while (this_img)
 	{
-		x = 0;
-		while (x + tile->offx < tile->width)
+		asset = screen->assets[this_img->asset];
+		if (this_img->asset == TREE)
 		{
-			tile_addr = get_px_addr(tile, x, y);
-			sprite_addr = get_px_addr(sprite, x, y);
-			if (*sprite_addr != 0)
-				*(unsigned int *)tile_addr = *(unsigned int *)sprite_addr;
-			x++;
+			if (this_img->frame >= 15)
+				this_img->frame = 0;
+			else
+				this_img->frame++;
+			overwrite(this_img, this_img->bg);
+			asset->offx = this_img->frame * asset->wid_per_frame;
+			overwrite_asset(this_img, asset);
 		}
-		y++;
+		put_tiles_to_big_pic(screen->big_picture, this_img);
+		this_img = this_img->next;
+		i++;
 	}
+	mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
+	return (i);
 }
 
 void	put_images(t_screen *screen)
 {
 	t_image	*tile;
+	t_image	*current;
 
+	screen->images = NULL;
 	screen->big_picture = malloc(sizeof(t_image));
 	screen->big_picture->img = mlx_new_image(screen->mlx, TILE_SIZE * screen->map_w, TILE_SIZE * screen->map_h);
 	if (!screen->big_picture->img)
@@ -213,8 +246,13 @@ void	put_images(t_screen *screen)
 			tile->x = j;
 			tile->y = i;
 			set_tiles(screen, tile);
-			put_image_to_big_pic(screen->big_picture, tile);
-	mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
+			if (!screen->images)
+				screen->images = tile;
+			else
+				current->next = tile;
+			current = tile;
+			put_tiles_to_big_pic(screen->big_picture, tile);
+	//mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
 	//sleep(1);
 			j++;
 		}
