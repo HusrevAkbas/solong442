@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 17:14:57 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/16 18:09:43 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,29 +195,32 @@ int	animate_tree(t_screen *screen)
 	t_image	*image_list;
 	t_image	*this_img;
 	t_image	*asset;
-	int		i = 0;
+	static int		i = 0;
 
-	usleep(100000);
-	image_list = screen->images;
-	this_img = image_list;
-	while (this_img)
+	if (i % 12000 == 0)
 	{
-		asset = screen->assets[this_img->asset];
-		if (this_img->asset == TREE)
+		ft_printf("i: %d\n", i);
+		image_list = screen->images;
+		this_img = image_list;
+		while (this_img)
 		{
-			if (this_img->frame >= 15)
-				this_img->frame = 0;
-			else
-				this_img->frame++;
-			overwrite(this_img, this_img->bg);
-			asset->offx = this_img->frame * asset->wid_per_frame;
-			overwrite_asset(this_img, asset);
+			asset = screen->assets[this_img->asset];
+			if (this_img->asset == TREE)
+			{
+				if (this_img->frame >= 15)
+					this_img->frame = 0;
+				else
+					this_img->frame++;
+				overwrite(this_img, this_img->bg);
+				asset->offx = this_img->frame * asset->wid_per_frame;
+				overwrite_asset(this_img, asset);
+			}
+			put_tiles_to_big_pic(screen->big_picture, this_img);
+			this_img = this_img->next;
 		}
-		put_tiles_to_big_pic(screen->big_picture, this_img);
-		this_img = this_img->next;
-		i++;
+		mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
 	}
-	mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
+	i++;
 	return (i);
 }
 
@@ -258,5 +261,5 @@ void	put_images(t_screen *screen)
 		}
 		i++;
 	}
-	//mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
+	mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
 }
