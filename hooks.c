@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 15:55:35 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/17 10:50:13 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,11 @@ int	run_key_hook(int keycode, t_screen *screen)
 		clean_exit(screen);
 	if (keycode == 65362 || keycode == 119)
 		move_up(screen);
+	if (keycode == 65364 || keycode == 115)
+		move_down(screen);
+	if (keycode == 65363 || keycode == 100)
+		move_right(screen);
+	if (keycode == 65361 || keycode == 97)
+		move_left(screen);
 	return (0);
 }

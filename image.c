@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 20:19:09 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/17 10:53:44 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void	put_images(t_screen *screen)
 			tile = new_tile(screen, TILE_SIZE, TILE_SIZE);
 			tile->x = j;
 			tile->y = i;
+			tile->asset = -1;
 			set_tiles(screen, tile);
 			if (!screen->images)
 				screen->images = tile;

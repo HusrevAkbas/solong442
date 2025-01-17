@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 20:37:07 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/17 11:59:08 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_image
 	int		offy;
 	//folded 0: down, 1: right, 2: up, 3: left
 	//opened 0: right, 1: down, 2: up, 3: left
-	int		player_direction;
+	int		direction;
 	int		px_move;
 	struct s_image	*player_dest;
 	struct s_image	*player_start;
@@ -70,6 +70,7 @@ typedef struct s_screen
 	void	*win;
 	int		map_w;
 	int		map_h;
+	int		count_moves;
 	struct s_image	*big_picture;
 	struct s_image	*images;
 	struct s_image	*assets[9];
@@ -91,6 +92,10 @@ void	animate_tree(t_screen *screen, t_image *image);
 void	move_player(t_screen *screen);
 
 //HOOKS
+void	move_down(t_screen *screen);
+void	move_left(t_screen *screen);
+void	move_right(t_screen *screen);
+void	move_up(t_screen *screen);
 int		run_key_hook(int keycode, t_screen *args);
 
 //IMAGE
@@ -104,9 +109,6 @@ void	set_map_size(t_screen *screen);
 
 //MAP
 char	**get_map(void);
-
-//MOVES
-void	move_up(t_screen *screen);
 
 //UTILS
 void	clean_exit(t_screen *args);

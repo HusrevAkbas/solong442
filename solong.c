@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 19:37:34 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/17 11:59:28 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv)
 	t_screen	screen;
 
 	screen.map = get_map();
+	screen.count_moves = 0;
 	set_map_size(&screen);
 	int i = 0;
 	while (screen.map[i])

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/16 20:35:29 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/17 12:03:11 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,101 @@ void	move_up(t_screen *screen)
 {
 	t_image	*player;
 	t_image	*list;
-	t_image	*start;
-	t_image	*dest;
 
 	player = screen->player;
+	if (screen->map[player->y - 1][player->x] == '1' || screen->map[player->y - 1][player->x] == 'E')
+		return ;
 	list = screen->images;
 	while (list)
 	{
 		if (list->x == player->x && list->y == player->y)
-			start = list;
-		if (list->x == player->x && list->y == player->y + 1)
-			dest = list;
+			player->player_start = list;
+		if (list->x == player->x && list->y == player->y - 1)
+			player->player_dest = list;
 		list = list->next;
 	}
 	player = screen->player;
-	if (screen->map[player->y - 1][player->x] == '1')
-		return ;
 	player->y--;
 	player->frame = 1;
-	player->player_direction = 2;
+	player->direction = 2;
 	player->px_move = 64;
+	screen->count_moves++;
+	ft_printf("You moved: %d\n",screen->count_moves);
+}
+
+void	move_down(t_screen *screen)
+{
+	t_image	*player;
+	t_image	*list;
+
+	player = screen->player;
+	if (screen->map[player->y + 1][player->x] == '1' || screen->map[player->y + 1][player->x] == 'E')
+		return ;
+	list = screen->images;
+	while (list)
+	{
+		if (list->x == player->x && list->y == player->y)
+			player->player_start = list;
+		if (list->x == player->x && list->y == player->y + 1)
+			player->player_dest = list;
+		list = list->next;
+	}
+	player->y++;
+	player->frame = 1;
+	player->direction = 0;
+	player->px_move = 64;
+	screen->count_moves++;
+	ft_printf("You moved: %d\n",screen->count_moves);
+}
+
+void	move_right(t_screen *screen)
+{
+	t_image	*player;
+	t_image	*list;
+
+	player = screen->player;
+	if (screen->map[player->y][player->x + 1] == '1' || screen->map[player->y][player->x + 1] == 'E')
+		return ;
+	list = screen->images;
+	while (list)
+	{
+		if (list->x == player->x && list->y == player->y)
+			player->player_start = list;
+		if (list->x == player->x + 1 && list->y == player->y)
+			player->player_dest = list;
+		list = list->next;
+	}
+	player = screen->player;
+	player->x++;
+	player->frame = 1;
+	player->direction = 1;
+	player->px_move = 64;
+	screen->count_moves++;
+	ft_printf("You moved: %d\n",screen->count_moves);
+}
+
+void	move_left(t_screen *screen)
+{
+	t_image	*player;
+	t_image	*list;
+
+	player = screen->player;
+	if (screen->map[player->y][player->x - 1] == '1' || screen->map[player->y][player->x - 1] == 'E')
+		return ;
+	list = screen->images;
+	while (list)
+	{
+		if (list->x == player->x && list->y == player->y)
+			player->player_start = list;
+		if (list->x == player->x - 1 && list->y == player->y)
+			player->player_dest = list;
+		list = list->next;
+	}
+	player = screen->player;
+	player->x--;
+	player->frame = 1;
+	player->direction = 3;
+	player->px_move = 64;
+	screen->count_moves++;
+	ft_printf("You moved: %d\n",screen->count_moves);
 }
