@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/17 11:59:08 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/20 11:27:26 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "mlx.h"
 // # include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
+#include "fcntl.h"
+//#include "limits.h"
 
 # define TILE_SIZE	64
 # define GRASS		0
@@ -71,6 +73,7 @@ typedef struct s_screen
 	int		map_w;
 	int		map_h;
 	int		count_moves;
+	int		count_collectible;
 	struct s_image	*big_picture;
 	struct s_image	*images;
 	struct s_image	*assets[9];
@@ -108,7 +111,7 @@ void	set_img_addr(t_image *img);
 void	set_map_size(t_screen *screen);
 
 //MAP
-char	**get_map(void);
+char	**set_map(char *arg);
 
 //UTILS
 void	clean_exit(t_screen *args);

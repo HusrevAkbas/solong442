@@ -5,10 +5,10 @@ LIBFTCHECK := libcheck/libft.a
  
 SRC := solong.c hooks.c image.c map.c fences.c moves.c animations.c
 OBJ := $(SRC:.c=.o)
-NAME := solong
+NAME := so_long
 
 all: ${NAME} clean
-	./$(NAME)
+	./$(NAME) 1.ber
 
 ${NAME}: ${OBJ} ${LIBFTCHECK}
 	cc -g $(CFLAGS) ${OBJ} -lmlx -lXext -lX11 -lm -lz -L $(LIBFT) -lft -o $(NAME)
