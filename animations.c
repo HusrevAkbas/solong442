@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/17 12:16:47 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/21 15:11:31 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	animate(t_screen *screen)
 	t_image	*asset;
 	static unsigned long	i = 0;
 
-	if (i % 13000 == 0)
+	if (i % 7000 == 0)
 	{
 		image_list = screen->images;
 		this_img = image_list;

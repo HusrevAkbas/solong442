@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/20 11:27:26 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/21 15:43:52 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "fcntl.h"
 //#include "limits.h"
 
-# define TILE_SIZE	64
+# define TILE_SIZE	63
 # define GRASS		0
 # define GRASS_PATH	"assets/Grass_Dirt_Tile.xpm"
 # define TREE		1
@@ -80,6 +80,15 @@ typedef struct s_screen
 	struct s_image	*player;
 	char	**map;
 }	t_screen;
+
+typedef struct s_mapcheck
+{
+	int	width;
+	int	player;
+	int	exit;
+	int	collectibles;
+	int	line;
+}	t_mapcheck;
 
 /*
 	1	get arg			filename: char*

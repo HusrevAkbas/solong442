@@ -6,6 +6,7 @@ LIBFTCHECK := libcheck/libft.a
 SRC := solong.c hooks.c image.c map.c fences.c moves.c animations.c
 OBJ := $(SRC:.c=.o)
 NAME := so_long
+NAMEBONUS := so_long_bonus
 
 all: ${NAME} clean
 	./$(NAME) 1.ber
@@ -23,16 +24,18 @@ ${LIBFTCHECK}:
 	@- ${MAKE} -C ${LIBFT} bonus clean
 
 b : bonus
-bonus :
+bonus : ${OBJ} ${LIBFTCHECK}
+	cc -g $(CFLAGS) ${OBJ} -lmlx -lXext -lX11 -lm -lz -L $(LIBFT) -lft -o $(NAMEBONUS)
+	./so_long_bonus 1.ber
 
 c : clean
 clean:
-	@- rm -f ${OBJ} checker.o push_swap.o
+	@- rm -f ${OBJ}
 
 f : fclean
 fclean: clean
 	@ ${MAKE} -C ${LIBFT} fclean
-	rm -f ${NAME} ${LIBFTCHECK} ${CLIENT}
+	rm -f ${NAME} ${LIBFTCHECK} ${CLIENT} $(NAMEBONUS)
 
 re: fclean all bonus
 
