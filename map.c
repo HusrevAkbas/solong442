@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:06 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/21 16:35:06 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/21 19:53:03 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,17 @@ int	is_filename_ok(char *arg)
 	return (1);
 }
 
-int	count_lines(int fd)
+int	count_lines(char *filename)
 {
 	char	*line;
 	int		i;
+	int		fd;
 
+	if (!filename)
+		return (0);
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		return (0);
 	i = 0;
 	line = get_next_line(fd);
 	while (line)
@@ -44,17 +50,17 @@ int	count_lines(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 	return (i);
 }
 
 char	**clear_map(char **map, int index)
 {
-	(void) index;
-	// while (index >= 0)
-	// {
-	// 	free(map[index]);
-	// 	index--;
-	// }
+	while (index >= 0)
+	{
+		//free(map[index]);
+		index--;
+	}
 	free(map);
 	return (NULL);
 }
@@ -167,11 +173,11 @@ int	can_be_finished(char **map, t_mapcheck *checker)
 	int		i;
 	int		res;
 
-	map_copy = malloc(checker->line * sizeof(char *));
+	map_copy = malloc((checker->line + 1) * sizeof(char *));
 	if (!map_copy)
 		return (0);
 	i = 0;
-	while (map[i])
+	while (i < checker->line)
 	{
 		map_copy[i] = ft_strdup(map[i]);
 		if (!map_copy[i])
@@ -210,6 +216,7 @@ int	validate_map(char **map)
 			return (0);
 		i++;
 	}
+	checker.line++;
 	if (!checker.collectibles || checker.player != 1 || checker.exit != 1
 		|| !is_line_valid(map[i-1], &checker, 1) || !can_be_finished(map, &checker))
 		return (0);
@@ -220,23 +227,20 @@ char	**set_map(char *arg)
 {
 	char	**map;
 	int		line_count;
-	int		fd;
+	int		is_valid;
 
 	if (!arg)
 		return (NULL);
 	if (!is_filename_ok(arg))
 		return (NULL);
-	fd = open(arg, O_RDONLY);
-	if (fd == -1)
-		return (NULL);
-	line_count = count_lines(fd);
-	close(fd);
+	line_count = count_lines(arg);
+ft_printf("lines %i\n", line_count);
 	if (line_count < 3)
 		return (NULL);
-	map = malloc(line_count * sizeof(char *));
+	map = malloc((line_count + 1) * sizeof(char *));
 	map = set_map_lines(map, arg);
-	fd = validate_map(map);
-	if (!fd)
+	is_valid = validate_map(map);
+	if (!is_valid)
 		return (clear_map(map, line_count));
 	return (map);
 }
