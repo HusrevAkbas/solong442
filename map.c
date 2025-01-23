@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:06 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 13:13:52 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:04:36 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**clear_map(char **map, int index)
 {
 	while (index >= 0)
 	{
-		//free(map[index]);
+		free(map[index]);
 		index--;
 	}
 	free(map);
@@ -93,7 +93,7 @@ char	**set_map_lines(char **map, char *filename)
 	return (map);
 }
 
-int	is_line_valid(char *line, t_mapcheck *checker,int last)
+int	is_line_valid(char *line, t_mapcheck *checker, int y, int is_last)
 {
 	int	i;
 
@@ -102,7 +102,7 @@ int	is_line_valid(char *line, t_mapcheck *checker,int last)
 	i = 1;
 	while (line[i])
 	{
-		if ((checker->line == 0 || last) && line[i] != '1')
+		if ((y == 0 || is_last == 1) && line[i] != '1')
 			return (0);
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'P'
 			&& line[i] != 'C' && line[i] != 'E')
@@ -209,39 +209,38 @@ int	validate_map(char **map)
 	i = 0;
 	while (map[i])
 	{
-		checker.line = i;
 		if ((int)ft_strlen(map[i]) != checker.width)
 			return (0);
-		if (!is_line_valid(map[i], &checker, 0))
+		if (!is_line_valid(map[i], &checker, i, 0))
 			return (0);
 		i++;
 	}
-	checker.line++;
+	checker.line = i;
 	if (!checker.collectibles || checker.player != 1 || checker.exit != 1
-		|| !is_line_valid(map[i-1], &checker, 1) || !can_be_finished(map, &checker))
+		|| !is_line_valid(map[i-1], &checker, i - 1, 1) || !can_be_finished(map, &checker))
 		return (0);
-	return (1);
+	return (checker.collectibles);
 }
 
-char	**set_map(char *arg)
+char	**set_map(char *arg, int *collectible_count)
 {
 	char	**map;
 	int		line_count;
-	// int		is_valid;
+	int		is_valid;
 
 	if (!arg)
 		return (NULL);
 	if (!is_filename_ok(arg))
 		return (NULL);
 	line_count = count_lines(arg);
-ft_printf("lines %i\n", line_count);
-	// if (line_count < 3)
-	// 	return (NULL);
+	if (line_count < 3)
+		return (NULL);
 	map = malloc((line_count + 1) * sizeof(char *));
 	map = set_map_lines(map, arg);
-	// is_valid = validate_map(map);
-	// if (!is_valid)
-	// 	return (clear_map(map, line_count));
+	is_valid = validate_map(map);
+	if (!is_valid)
+		return (clear_map(map, line_count));
+	*collectible_count = is_valid;
 	return (map);
 }
 

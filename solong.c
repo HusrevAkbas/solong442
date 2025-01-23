@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 13:45:27 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:05:29 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_printf("You need to set a map\n"));
-	screen.map = set_map(argv[1]);
+	screen.map = set_map(argv[1], &screen.count_collectible);
 	if (!screen.map)
 		return (ft_printf("Invalid map, invalid filename or wrong file"));
 	screen.count_moves = 0;

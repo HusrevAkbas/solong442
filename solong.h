@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 13:52:06 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:05:07 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "fcntl.h"
 //#include "limits.h"
 
-# define TILE_SIZE	64
+# define TILE_SIZE	63
 # define GRASS		0
 # define GRASS_PATH	"assets/Grass_Dirt_Tile.xpm"
 # define TREE		1
@@ -58,53 +58,29 @@ typedef struct s_image
 	int		offx;
 	int		offy;
 	int		direction;
-	//folded 0: down, 1: right, 2: up, 3: left
-	//opened 0: right, 1: down, 2: up, 3: left
-	// int		px_move;
-	// struct s_image	*player_dest;
-	// struct s_image	*player_start;
 	struct s_image	*next;
 }	t_image;
 
 typedef struct s_bg
 {
 	void	*img;
-	// struct s_image	*bg;
-	//int		asset;	//player, collectible, passable, unpassable
-	// unsigned int		frame;
-	// int		wid_per_frame;
 	int		width;
 	int		heigth;
 	char	*address;
 	int		bits_p_px;
 	int		linelen;
 	int		endian;
-	// int		x;
-	// int		y;
 	int		offx;
 	int		offy;
-	//folded 0: down, 1: right, 2: up, 3: left
-	//opened 0: right, 1: down, 2: up, 3: left
-	// int		direction;
-	// int		px_move;
-	// struct s_image	*player_dest;
-	// struct s_image	*player_start;
-	// struct s_image	*next;
 }	t_bg;
 
 typedef struct s_player
 {
-	// void	*img;
-	// struct s_image	*bg;
 	int		asset;	//player, collectible, passable, unpassable
 	unsigned int		frame;
 	int		wid_per_frame;
 	int		width;
 	int		heigth;
-	// char	*address;
-	// int		bits_p_px;
-	// int		linelen;
-	// int		endian;
 	int		x;
 	int		y;
 	int		offx;
@@ -143,11 +119,13 @@ typedef struct s_mapcheck
 }	t_mapcheck;
 
 /*
-	1	get arg			filename: char*
-	2	set map tiles	map: char**
-	3	create images	images: void*
-	4	put images to window
-	5	set event - hooks
+	1	get arg			filename: char*	+
+	2	set map tiles	map: char**		+
+	3	create images	images: void*	+
+	4	put images to window			+
+	5	set event - hooks				+
+	6	create animations
+	7	free before exit
 */
 
 //ANIMATIONS
@@ -174,7 +152,7 @@ void	set_img_addr(t_image *img);
 void	set_map_size(t_screen *screen);
 
 //MAP
-char	**set_map(char *arg);
+char	**set_map(char *arg, int *collectible_count);
 
 //UTILS
 void	clean_exit(t_screen *args);

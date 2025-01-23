@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/17 10:50:13 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:06:18 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,8 @@ void	clean_exit(t_screen *screen)
 }
 int	clean_exit_button(t_screen *screen)
 {
-	mlx_destroy_window(screen->mlx ,screen->win);
-	mlx_destroy_display(screen->mlx);
-	free(screen->mlx);
-	exit (0);
-	//return (0);
+	clean_exit(screen);
+	return (0);
 }
 
 int	run_key_hook(int keycode, t_screen *screen)

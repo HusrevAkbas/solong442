@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 14:35:22 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 14:57:44 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_top_left_corner(t_screen *screen, t_image *tile)
 	overwrite_bg(tile);
 	tile->offx = 32;
 	tile->offy = 32;
-	overwrite(tile, asset);
+	overwrite_asset(tile, asset);
 }
 
 void	set_top_right_corner(t_screen *screen, t_image *tile)
@@ -36,11 +36,7 @@ void	set_top_right_corner(t_screen *screen, t_image *tile)
 	tile->offy = 32;
 	asset->offx = 64;
 	asset->wid_per_frame = 32;
-	overwrite(tile, asset);
-	// tile->offx = 32;
-	// tile->offy = 0;
-	// tile->bg->offx = 32;
-	// tile->bg->offy = 0;
+	overwrite_asset(tile, asset);
 }
 
 void	set_bottom_left_corner(t_screen *screen, t_image *tile)
