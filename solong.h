@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 13:26:57 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:52:06 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "fcntl.h"
 //#include "limits.h"
 
-# define TILE_SIZE	63
+# define TILE_SIZE	64
 # define GRASS		0
 # define GRASS_PATH	"assets/Grass_Dirt_Tile.xpm"
 # define TREE		1

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 13:39:42 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:49:13 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,6 @@ void	move_player(t_screen *screen)
 	start = player->player_start;
 	dest = player->player_dest;
 	player->px_move -= 8;
-	overwrite_bg(start);
-	overwrite_bg(dest);
-	put_tiles_to_big_pic(screen->big_picture, start);
-	put_tiles_to_big_pic(screen->big_picture, dest);
 	screen->big_picture->offx = player->x * TILE_SIZE + 15;
 	screen->big_picture->offy = player->y * TILE_SIZE + 15;
 	if (player->direction == 2)
@@ -96,10 +92,6 @@ int	animate(t_screen *screen)
 		while (this_img)
 		{
 			asset = screen->assets[this_img->asset];
-			// if (screen->map[this_img->y][this_img->x] == '0'
-			// 	|| screen->map[this_img->y][this_img->x] == 'C'
-			// 	|| screen->map[this_img->y][this_img->x] == 'P'
-			// 	|| screen->map[this_img->y][this_img->x] == 'E')
 			if (screen->map[this_img->y][this_img->x] != '1')
 			{
 				overwrite_bg(this_img);
