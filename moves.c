@@ -6,11 +6,19 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 17:34:13 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:40:22 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
+
+static void	set_commons(t_screen *screen, t_player *player)
+{
+	player->frame = 1;
+	player->px_move = 64;
+	screen->count_moves++;
+	ft_printf("You moved %d times\n", screen->count_moves);
+}
 
 void	move_up(t_screen *screen)
 {
@@ -36,13 +44,9 @@ void	move_up(t_screen *screen)
 		player->player_dest->asset = -1;
 		screen->count_collectible--;
 	}
-	player = screen->player;
 	player->y--;
-	player->frame = 1;
 	player->direction = 2;
-	player->px_move = 64;
-	screen->count_moves++;
-	ft_printf("You moved %3d times\n",screen->count_moves);
+	set_commons(screen, player);
 }
 
 void	move_down(t_screen *screen)
@@ -69,13 +73,9 @@ void	move_down(t_screen *screen)
 		player->player_dest->asset = -1;
 		screen->count_collectible--;
 	}
-	player = screen->player;
 	player->y++;
-	player->frame = 1;
 	player->direction = 0;
-	player->px_move = 64;
-	screen->count_moves++;
-	ft_printf("You moved %3d times\n",screen->count_moves);
+	set_commons(screen, player);
 }
 
 void	move_right(t_screen *screen)
@@ -102,13 +102,9 @@ void	move_right(t_screen *screen)
 		player->player_dest->asset = -1;
 		screen->count_collectible--;
 	}
-	player = screen->player;
 	player->x++;
-	player->frame = 1;
 	player->direction = 1;
-	player->px_move = 64;
-	screen->count_moves++;
-	ft_printf("You moved %3d times\n",screen->count_moves);
+	set_commons(screen, player);
 }
 
 void	move_left(t_screen *screen)
@@ -135,11 +131,7 @@ void	move_left(t_screen *screen)
 		player->player_dest->asset = -1;
 		screen->count_collectible--;
 	}
-	player = screen->player;
 	player->x--;
-	player->frame = 1;
 	player->direction = 3;
-	player->px_move = 64;
-	screen->count_moves++;
-	ft_printf("You moved %3d times\n",screen->count_moves);
+	set_commons(screen, player);
 }
