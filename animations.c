@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/21 15:11:31 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:39:42 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	animate_tree(t_screen *screen, t_image *image)
 	t_image	*asset;
 
 	asset = screen->assets[TREE];
-	overwrite(image, image->bg);
+	overwrite_bg(image);
 	image->frame++;
 	asset->offx = (image->frame % 16) * asset->wid_per_frame;
 	overwrite_asset(image, asset);
@@ -29,7 +29,7 @@ void	animate_collectible(t_screen *screen, t_image *image)
 	t_image	*asset;
 
 	asset = screen->assets[COLLECTION];
-	overwrite(image, image->bg);
+	overwrite_bg(image);
 	image->offx = 16;
 	image->offy = 10;
 	if (image->direction == 0)
@@ -54,18 +54,18 @@ void	animate_collectible(t_screen *screen, t_image *image)
 
 void	move_player(t_screen *screen)
 {
-	t_image	*player;
-	t_image	*asset;
-	t_image	*start;
-	t_image	*dest;
+	t_player	*player;
+	t_image		*asset;
+	t_image		*start;
+	t_image		*dest;
 
 	player = screen->player;
 	asset = screen->assets[player->asset];
 	start = player->player_start;
 	dest = player->player_dest;
 	player->px_move -= 8;
-	overwrite(start, start->bg);
-	overwrite(dest, dest->bg);
+	overwrite_bg(start);
+	overwrite_bg(dest);
 	put_tiles_to_big_pic(screen->big_picture, start);
 	put_tiles_to_big_pic(screen->big_picture, dest);
 	screen->big_picture->offx = player->x * TILE_SIZE + 15;
@@ -86,23 +86,23 @@ void	move_player(t_screen *screen)
 
 int	animate(t_screen *screen)
 {
-	t_image	*image_list;
 	t_image	*this_img;
 	t_image	*asset;
 	static unsigned long	i = 0;
 
 	if (i % 7000 == 0)
 	{
-		image_list = screen->images;
-		this_img = image_list;
+		this_img = screen->images;
 		while (this_img)
 		{
 			asset = screen->assets[this_img->asset];
-			if (screen->map[this_img->y][this_img->x] == '0'
-				|| screen->map[this_img->y][this_img->x] == 'C'
-				|| screen->map[this_img->y][this_img->x] == 'P')
+			// if (screen->map[this_img->y][this_img->x] == '0'
+			// 	|| screen->map[this_img->y][this_img->x] == 'C'
+			// 	|| screen->map[this_img->y][this_img->x] == 'P'
+			// 	|| screen->map[this_img->y][this_img->x] == 'E')
+			if (screen->map[this_img->y][this_img->x] != '1')
 			{
-				overwrite(this_img, this_img->bg);
+				overwrite_bg(this_img);
 				put_tiles_to_big_pic(screen->big_picture, this_img);
 			}
 			if (this_img->asset == TREE)

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/17 10:59:26 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:01:42 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	set_top_left_corner(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	asset->wid_per_frame = 32;
+	overwrite_bg(tile);
 	tile->offx = 32;
 	tile->offy = 32;
 	overwrite(tile, asset);
@@ -30,16 +31,16 @@ void	set_top_right_corner(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 0;
 	tile->offy = 32;
 	asset->offx = 64;
+	asset->wid_per_frame = 32;
 	overwrite(tile, asset);
-	tile->offx = 32;
-	tile->offy = 0;
-	tile->bg->offx = 32;
-	tile->bg->offy = 0;
-	overwrite(tile, tile->bg);
+	// tile->offx = 32;
+	// tile->offy = 0;
+	// tile->bg->offx = 32;
+	// tile->bg->offy = 0;
 }
 
 void	set_bottom_left_corner(t_screen *screen, t_image *tile)
@@ -48,7 +49,7 @@ void	set_bottom_left_corner(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 32;
 	tile->offy = 0;
 	asset->offx = 0;
@@ -63,7 +64,7 @@ void	set_bottom_right_corner(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 0;
 	tile->offy = 0;
 	asset->offx = 64;
@@ -78,11 +79,12 @@ void	set_left_border(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 32;
 	tile->offy = 0;
 	asset->offx = 96;
 	asset->offy = 1;
+	asset->wid_per_frame = 32;
 	overwrite(tile, asset);
 }
 
@@ -92,11 +94,12 @@ void	set_rigth_border(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 0;
 	tile->offy = 0;
 	asset->offx = 96;
 	asset->offy = 1;
+	asset->wid_per_frame = 32;
 	overwrite(tile, asset);
 }
 
@@ -106,11 +109,12 @@ void	set_top_border(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 0;
 	tile->offy = 32;
 	asset->offx = 23;
 	asset->offy = 96;
+	asset->wid_per_frame = 32;
 	overwrite(tile, asset);
 }
 
@@ -120,11 +124,12 @@ void	set_bottom_border(t_screen *screen, t_image *tile)
 
 	tile->asset = FENCE;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 0;
 	tile->offy = 0;
 	asset->offx = 8;
 	asset->offy = 96;
+	asset->wid_per_frame = 32;
 	overwrite(tile, asset);
 }
 
@@ -135,7 +140,7 @@ void	set_tree(t_screen *screen, t_image *tile)
 	tile->asset = TREE;
 	tile->frame = 0;
 	asset = screen->assets[tile->asset];
-	overwrite(tile, tile->bg);
+	overwrite_bg(tile);
 	tile->offx = 0;
 	tile->offy = 2;
 	asset->offx = 0;
@@ -146,8 +151,8 @@ void	set_tree(t_screen *screen, t_image *tile)
 
 void	set_player(t_screen *screen, t_image *tile)
 {
-	t_image	*player;
-	t_image	*asset;
+	t_player	*player;
+	t_image		*asset;
 
 	player = malloc(sizeof(t_image));
 	player->x = tile->x;

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/17 12:04:18 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:26:02 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	move_up(t_screen *screen)
 {
-	t_image	*player;
-	t_image	*list;
+	t_player	*player;
+	t_image		*list;
 
 	player = screen->player;
-	if (screen->map[player->y - 1][player->x] == '1' || screen->map[player->y - 1][player->x] == 'E')
+	if (screen->map[player->y - 1][player->x] == '1')
 		return ;
 	list = screen->images;
 	while (list)
@@ -30,7 +30,7 @@ void	move_up(t_screen *screen)
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
-		player->player_dest->asset = GRASS;
+		player->player_dest->asset = -1;
 	player = screen->player;
 	player->y--;
 	player->frame = 1;
@@ -42,11 +42,11 @@ void	move_up(t_screen *screen)
 
 void	move_down(t_screen *screen)
 {
-	t_image	*player;
-	t_image	*list;
+	t_player	*player;
+	t_image		*list;
 
 	player = screen->player;
-	if (screen->map[player->y + 1][player->x] == '1' || screen->map[player->y + 1][player->x] == 'E')
+	if (screen->map[player->y + 1][player->x] == '1')
 		return ;
 	list = screen->images;
 	while (list)
@@ -58,7 +58,7 @@ void	move_down(t_screen *screen)
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
-		player->player_dest->asset = GRASS;
+		player->player_dest->asset = -1;
 	player->y++;
 	player->frame = 1;
 	player->direction = 0;
@@ -69,11 +69,11 @@ void	move_down(t_screen *screen)
 
 void	move_right(t_screen *screen)
 {
-	t_image	*player;
-	t_image	*list;
+	t_player	*player;
+	t_image		*list;
 
 	player = screen->player;
-	if (screen->map[player->y][player->x + 1] == '1' || screen->map[player->y][player->x + 1] == 'E')
+	if (screen->map[player->y][player->x + 1] == '1')
 		return ;
 	list = screen->images;
 	while (list)
@@ -85,7 +85,7 @@ void	move_right(t_screen *screen)
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
-		player->player_dest->asset = GRASS;
+		player->player_dest->asset = -1;
 	player = screen->player;
 	player->x++;
 	player->frame = 1;
@@ -97,11 +97,11 @@ void	move_right(t_screen *screen)
 
 void	move_left(t_screen *screen)
 {
-	t_image	*player;
-	t_image	*list;
+	t_player	*player;
+	t_image		*list;
 
 	player = screen->player;
-	if (screen->map[player->y][player->x - 1] == '1' || screen->map[player->y][player->x - 1] == 'E')
+	if (screen->map[player->y][player->x - 1] == '1')
 		return ;
 	list = screen->images;
 	while (list)
@@ -113,7 +113,7 @@ void	move_left(t_screen *screen)
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
-		player->player_dest->asset = GRASS;
+		player->player_dest->asset = -1;
 	player = screen->player;
 	player->x--;
 	player->frame = 1;

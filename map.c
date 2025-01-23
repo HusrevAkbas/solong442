@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:06 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/21 19:53:03 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 13:13:52 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ char	**set_map(char *arg)
 {
 	char	**map;
 	int		line_count;
-	int		is_valid;
+	// int		is_valid;
 
 	if (!arg)
 		return (NULL);
@@ -235,13 +235,13 @@ char	**set_map(char *arg)
 		return (NULL);
 	line_count = count_lines(arg);
 ft_printf("lines %i\n", line_count);
-	if (line_count < 3)
-		return (NULL);
+	// if (line_count < 3)
+	// 	return (NULL);
 	map = malloc((line_count + 1) * sizeof(char *));
 	map = set_map_lines(map, arg);
-	is_valid = validate_map(map);
-	if (!is_valid)
-		return (clear_map(map, line_count));
+	// is_valid = validate_map(map);
+	// if (!is_valid)
+	// 	return (clear_map(map, line_count));
 	return (map);
 }
 
