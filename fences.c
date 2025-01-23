@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 13:01:42 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 14:35:22 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,11 +164,8 @@ void	set_player(t_screen *screen, t_image *tile)
 	player->direction = 2;
 	asset->offx = asset->wid_per_frame * player->direction;
 	asset->offy = 0;
-	tile->offx = 14;
-	tile->offy = 14;
 	player->px_move = 0;
 	screen->player = player;
-	overwrite_asset(tile, asset);
 }
 
 void	set_collectible(t_screen *screen, t_image *tile)
@@ -177,6 +174,7 @@ void	set_collectible(t_screen *screen, t_image *tile)
 
 	tile->asset = COLLECTION;
 	tile->frame = 0;
+	tile->direction = 0;
 	asset = screen->assets[tile->asset];
 	tile->offx = 16;
 	tile->offy = 16;
@@ -218,6 +216,7 @@ void	set_exit_point(t_screen *screen, t_image *tile)
 	overwrite_asset(tile, asset);
 	tile->offx = 48;
 	overwrite_asset(tile, asset);
+	tile->offy = 48;
 }
 
 void	set_tiles(t_screen *screen, t_image *tile)
