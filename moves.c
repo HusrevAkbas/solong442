@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 15:43:30 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:34:13 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	move_up(t_screen *screen)
 {
 	t_player	*player;
-	t_image		*list;
+	t_list		*list;
+	t_image		*image;
 
 	player = screen->player;
 	if (screen->map[player->y - 1][player->x] == '1')
@@ -23,10 +24,11 @@ void	move_up(t_screen *screen)
 	list = screen->images;
 	while (list)
 	{
-		if (list->x == player->x && list->y == player->y)
-			player->player_start = list;
-		if (list->x == player->x && list->y == player->y - 1)
-			player->player_dest = list;
+		image = list->content;
+		if (image->x == player->x && image->y == player->y)
+			player->player_start = image;
+		if (image->x == player->x && image->y == player->y - 1)
+			player->player_dest = image;
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
@@ -40,13 +42,14 @@ void	move_up(t_screen *screen)
 	player->direction = 2;
 	player->px_move = 64;
 	screen->count_moves++;
-	ft_printf("You moved: %d\n",screen->count_moves);
+	ft_printf("You moved %3d times\n",screen->count_moves);
 }
 
 void	move_down(t_screen *screen)
 {
 	t_player	*player;
-	t_image		*list;
+	t_list		*list;
+	t_image		*image;
 
 	player = screen->player;
 	if (screen->map[player->y + 1][player->x] == '1')
@@ -54,10 +57,11 @@ void	move_down(t_screen *screen)
 	list = screen->images;
 	while (list)
 	{
-		if (list->x == player->x && list->y == player->y)
-			player->player_start = list;
-		if (list->x == player->x && list->y == player->y + 1)
-			player->player_dest = list;
+		image = list->content;
+		if (image->x == player->x && image->y == player->y)
+			player->player_start = image;
+		if (image->x == player->x && image->y == player->y + 1)
+			player->player_dest = image;
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
@@ -65,18 +69,20 @@ void	move_down(t_screen *screen)
 		player->player_dest->asset = -1;
 		screen->count_collectible--;
 	}
+	player = screen->player;
 	player->y++;
 	player->frame = 1;
 	player->direction = 0;
 	player->px_move = 64;
 	screen->count_moves++;
-	ft_printf("You moved: %d\n",screen->count_moves);
+	ft_printf("You moved %3d times\n",screen->count_moves);
 }
 
 void	move_right(t_screen *screen)
 {
 	t_player	*player;
-	t_image		*list;
+	t_list		*list;
+	t_image		*image;
 
 	player = screen->player;
 	if (screen->map[player->y][player->x + 1] == '1')
@@ -84,10 +90,11 @@ void	move_right(t_screen *screen)
 	list = screen->images;
 	while (list)
 	{
-		if (list->x == player->x && list->y == player->y)
-			player->player_start = list;
-		if (list->x == player->x + 1 && list->y == player->y)
-			player->player_dest = list;
+		image = list->content;
+		if (image->x == player->x && image->y == player->y)
+			player->player_start = image;
+		if (image->x == player->x + 1 && image->y == player->y)
+			player->player_dest = image;
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
@@ -101,13 +108,14 @@ void	move_right(t_screen *screen)
 	player->direction = 1;
 	player->px_move = 64;
 	screen->count_moves++;
-	ft_printf("You moved: %d\n",screen->count_moves);
+	ft_printf("You moved %3d times\n",screen->count_moves);
 }
 
 void	move_left(t_screen *screen)
 {
 	t_player	*player;
-	t_image		*list;
+	t_list		*list;
+	t_image		*image;
 
 	player = screen->player;
 	if (screen->map[player->y][player->x - 1] == '1')
@@ -115,10 +123,11 @@ void	move_left(t_screen *screen)
 	list = screen->images;
 	while (list)
 	{
-		if (list->x == player->x && list->y == player->y)
-			player->player_start = list;
-		if (list->x == player->x - 1 && list->y == player->y)
-			player->player_dest = list;
+		image = list->content;
+		if (image->x == player->x && image->y == player->y)
+			player->player_start = image;
+		if (image->x == player->x - 1 && image->y == player->y)
+			player->player_dest = image;
 		list = list->next;
 	}
 	if (player->player_dest->asset == COLLECTION)
@@ -132,5 +141,5 @@ void	move_left(t_screen *screen)
 	player->direction = 3;
 	player->px_move = 64;
 	screen->count_moves++;
-	ft_printf("You moved: %d\n",screen->count_moves);
+	ft_printf("You moved %3d times\n",screen->count_moves);
 }

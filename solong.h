@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 16:45:16 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:12:00 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_image
 	int		offx;
 	int		offy;
 	int		direction;
-	struct s_image	*next;
+	// struct s_image	*next;
 }	t_image;
 
 typedef struct s_bg
@@ -91,7 +91,7 @@ typedef struct s_player
 	int		px_move;
 	struct s_image	*player_start;
 	struct s_image	*player_dest;
-	struct s_image	*next;
+	struct s_player	*next;
 }	t_player;
 
 typedef struct s_screen
@@ -103,7 +103,7 @@ typedef struct s_screen
 	int		count_moves;
 	int		count_collectible;
 	struct s_image	*big_picture;
-	struct s_image	*images;
+	struct s_list	*images;
 	struct s_image	*assets[9];
 	struct s_player	*player;
 	char	**map;

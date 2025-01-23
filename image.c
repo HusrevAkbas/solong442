@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 13:22:37 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:15:09 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	set_image_attributes(t_image *img)
 	img->offy = 0;
 	img->x = 0;
 	img->y = 0;
-	img->next = NULL;
+	// img->next = NULL;
 }
 
 void	set_player_attributes(t_player *player)
@@ -286,7 +286,7 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 	tile->bg = new_bg(screen, width, heigth);
 	overwrite_bg(tile);
 	tile->wid_per_frame = TILE_SIZE;
-	tile->next = NULL;
+	// tile->next = NULL;
 	return (tile);
 }
 
@@ -317,9 +317,9 @@ void	put_images(t_screen *screen)
 			tile->asset = -1;
 			set_tiles(screen, tile);
 			if (!screen->images)
-				screen->images = tile;
+				screen->images = ft_lstnew(tile);
 			else
-				current->next = tile;
+				ft_lstadd_back(&screen->images, ft_lstnew(tile));
 			current = tile;
 			put_tiles_to_big_pic(screen->big_picture, tile);
 	//mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);

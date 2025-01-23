@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 16:27:56 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 17:16:32 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,17 @@ void	move_player(t_screen *screen)
 
 int	animate(t_screen *screen)
 {
+	t_list	*list;
 	t_image	*this_img;
 	t_image	*asset;
 	static unsigned long	i = 0;
 
 	if (i % 7000 == 0)
 	{
-		this_img = screen->images;
-		while (this_img)
+		list = screen->images;
+		while (list)
 		{
+			this_img = list->content;
 			asset = screen->assets[this_img->asset];
 			if (screen->count_collectible == 0 && screen->map[this_img->y][this_img->x] == 'E' && this_img->asset == GRASS)
 				set_exit_point(screen, this_img, 0);
@@ -105,7 +107,7 @@ int	animate(t_screen *screen)
 				animate_tree(screen, this_img);
 			else if (this_img->asset == COLLECTION)
 				animate_collectible(screen, this_img);
-			this_img = this_img->next;
+			list = list->next;
 		}
 		if (screen->player->px_move)
 			move_player(screen);
