@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 15:06:18 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 16:45:39 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,21 @@
 	backspace: 65288
 	enter: 65293
 */
+void	del_image(void *image)
+{
+	t_image	*img;
+
+	img = image;
+	if (img->bg)
+		free(img->bg->img);
+	free(img->img);
+}
 void	clean_exit(t_screen *screen)
 {
 	if (!screen)
 		return ;
+	// ft_lstclear(&screen->images, &del_image);
+	clear_map(screen->map, screen->map_h - 1);
 	if (screen->win)
 		mlx_destroy_window(screen->mlx ,screen->win);
 	mlx_destroy_display(screen->mlx);

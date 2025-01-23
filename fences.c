@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 14:57:44 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 16:24:54 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void	set_collectible(t_screen *screen, t_image *tile)
 	overwrite_asset(tile, asset);
 }
 
-void	set_exit_point(t_screen *screen, t_image *tile)
+void	set_exit_point(t_screen *screen, t_image *tile, int growth)
 {
 	t_image	*asset;
 
@@ -197,7 +197,7 @@ void	set_exit_point(t_screen *screen, t_image *tile)
 	asset = screen->assets[FLOWERS];
 	asset->wid_per_frame = 12;
 	asset->offx = 0 * asset->wid_per_frame;
-	asset->offy = 2 * asset->wid_per_frame;
+	asset->offy = growth * asset->wid_per_frame;
 	tile->offx = 12;
 	tile->offy = 0;
 	overwrite_asset(tile, asset);
@@ -240,5 +240,5 @@ void	set_tiles(t_screen *screen, t_image *tile)
 	else if (screen->map[tile->y][tile->x] == 'C')
 		set_collectible(screen, tile);
 	else if (screen->map[tile->y][tile->x] == 'E')
-		set_exit_point(screen, tile);
+		set_exit_point(screen, tile, 5);
 }

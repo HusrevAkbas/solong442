@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 14:34:05 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 16:27:56 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	move_player(t_screen *screen)
 	asset->offy = (player->frame % 4) * asset->wid_per_frame;
 	player->frame++;
 	overwrite_asset(screen->big_picture, asset);
+	if (screen->count_collectible == 0 && screen->map[dest->y][dest->x] == 'E' && player->px_move == 0)
+		clean_exit(screen);
 }
 
 int	animate(t_screen *screen)
@@ -92,6 +94,8 @@ int	animate(t_screen *screen)
 		while (this_img)
 		{
 			asset = screen->assets[this_img->asset];
+			if (screen->count_collectible == 0 && screen->map[this_img->y][this_img->x] == 'E' && this_img->asset == GRASS)
+				set_exit_point(screen, this_img, 0);
 			if (screen->map[this_img->y][this_img->x] != '1')
 			{
 				overwrite_bg(this_img);

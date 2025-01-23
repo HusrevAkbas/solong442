@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 15:05:07 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 16:45:16 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,14 @@ void	overwrite_asset(t_image *bg, t_image *asset);
 void	overwrite_bg(t_image *img);
 void	put_tiles_to_big_pic(t_image *bg, t_image *img);
 void	put_images(t_screen *screen);
-void	set_exit_point(t_screen *screen, t_image *tile);
-void	set_tiles(t_screen *screen, t_image *tile);
+void	set_exit_point(t_screen *screen, t_image *tile, int growth);
 void	set_img_addr(t_image *img);
+void	set_image_attributes(t_image *img);
 void	set_map_size(t_screen *screen);
+void	set_tiles(t_screen *screen, t_image *tile);
 
 //MAP
+char	**clear_map(char **map, int index);
 char	**set_map(char *arg, int *collectible_count);
 
 //UTILS

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 15:10:22 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/23 15:43:30 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	move_right(t_screen *screen)
 	player->direction = 1;
 	player->px_move = 64;
 	screen->count_moves++;
-	ft_printf("You moved: %dn",screen->count_moves);
+	ft_printf("You moved: %d\n",screen->count_moves);
 }
 
 void	move_left(t_screen *screen)
