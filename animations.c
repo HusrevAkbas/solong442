@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 17:16:32 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:00:32 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,13 @@ void	move_player(t_screen *screen)
 {
 	t_player	*player;
 	t_image		*asset;
-	t_image		*start;
+	//t_image		*start;
 	t_image		*dest;
 
 	player = screen->player;
 	asset = screen->assets[player->asset];
-	start = player->player_start;
-	dest = player->player_dest;
+	//start = player->start;
+	dest = player->dest;
 	player->px_move -= 8;
 	screen->big_picture->offx = player->x * TILE_SIZE + 15;
 	screen->big_picture->offy = player->y * TILE_SIZE + 15;
@@ -86,16 +86,16 @@ int	animate(t_screen *screen)
 {
 	t_list	*list;
 	t_image	*this_img;
-	t_image	*asset;
+	//t_image	*asset;
 	static unsigned long	i = 0;
 
-	if (i % 7000 == 0)
+	if (i % 100 == 0)
 	{
 		list = screen->images;
 		while (list)
 		{
 			this_img = list->content;
-			asset = screen->assets[this_img->asset];
+			//asset = screen->assets[this_img->asset];
 			if (screen->count_collectible == 0 && screen->map[this_img->y][this_img->x] == 'E' && this_img->asset == GRASS)
 				set_exit_point(screen, this_img, 0);
 			if (screen->map[this_img->y][this_img->x] != '1')

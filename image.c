@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 17:15:09 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:00:32 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	set_player_attributes(t_player *player)
 {
 	player->px_move = 0;
 	player->direction = 0;
-	player->player_dest = NULL;
-	player->player_start = NULL;
+	player->dest = NULL;
+	player->start = NULL;
 	player->next = NULL;
 	player->asset = 0;
 	player->frame = 0;
@@ -293,7 +293,7 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 void	put_images(t_screen *screen)
 {
 	t_image	*tile;
-	t_image	*current;
+	//t_image	*current;
 
 	screen->images = NULL;
 	screen->big_picture = malloc(sizeof(t_image));
@@ -320,7 +320,7 @@ void	put_images(t_screen *screen)
 				screen->images = ft_lstnew(tile);
 			else
 				ft_lstadd_back(&screen->images, ft_lstnew(tile));
-			current = tile;
+			//current = tile;
 			put_tiles_to_big_pic(screen->big_picture, tile);
 	//mlx_put_image_to_window(screen->mlx, screen->win, tile->img, j * TILE_SIZE, i * TILE_SIZE);
 	//sleep(1);

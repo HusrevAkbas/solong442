@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   solong.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 17:12:00 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:17:47 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
 # include "libft/libft.h"
-# include "mlx.h"
-// # include "mlx_linux/mlx.h" //for WSL2
+// # include "mlx.h"
+# include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
 #include "fcntl.h"
 //#include "limits.h"
@@ -89,8 +89,8 @@ typedef struct s_player
 	//opened 0: right, 1: down, 2: up, 3: left
 	int		direction;
 	int		px_move;
-	struct s_image	*player_start;
-	struct s_image	*player_dest;
+	struct s_image	*start;
+	struct s_image	*dest;
 	struct s_player	*next;
 }	t_player;
 

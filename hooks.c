@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 16:45:39 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:18:23 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,35 @@ void	del_image(void *image)
 	t_image	*img;
 
 	img = image;
+//ADD MLX POINTER TO IMAGES TO BE ABLE TO DESTROY IMAGES
+	// mlx_destroy_image(img->img);
+	//free(img->img);
 	if (img->bg)
-		free(img->bg->img);
-	free(img->img);
+	{
+		// mlx_destroy_image(img->bg);
+		//free(img->bg->img);
+		free(img->bg);
+		img->bg = NULL;
+	}
+	free(img);
+	img = NULL;
 }
 void	clean_exit(t_screen *screen)
 {
+	int	i;
+
 	if (!screen)
 		return ;
-	// ft_lstclear(&screen->images, &del_image);
+	ft_lstclear(&screen->images, &del_image);
 	clear_map(screen->map, screen->map_h - 1);
-	if (screen->win)
-		mlx_destroy_window(screen->mlx ,screen->win);
+	i = 9;
+	while (i > 0)
+	{
+		i--;
+		del_image(screen->assets[i]);
+	}
+	free(screen->player);
+	mlx_destroy_window(screen->mlx ,screen->win);
 	mlx_destroy_display(screen->mlx);
 	free(screen->mlx);
 	exit (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 17:40:22 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:00:32 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	move_up(t_screen *screen)
 	{
 		image = list->content;
 		if (image->x == player->x && image->y == player->y)
-			player->player_start = image;
+			player->start = image;
 		if (image->x == player->x && image->y == player->y - 1)
-			player->player_dest = image;
+			player->dest = image;
 		list = list->next;
 	}
-	if (player->player_dest->asset == COLLECTION)
+	if (player->dest->asset == COLLECTION)
 	{
-		player->player_dest->asset = -1;
+		player->dest->asset = -1;
 		screen->count_collectible--;
 	}
 	player->y--;
@@ -63,14 +63,14 @@ void	move_down(t_screen *screen)
 	{
 		image = list->content;
 		if (image->x == player->x && image->y == player->y)
-			player->player_start = image;
+			player->start = image;
 		if (image->x == player->x && image->y == player->y + 1)
-			player->player_dest = image;
+			player->dest = image;
 		list = list->next;
 	}
-	if (player->player_dest->asset == COLLECTION)
+	if (player->dest->asset == COLLECTION)
 	{
-		player->player_dest->asset = -1;
+		player->dest->asset = -1;
 		screen->count_collectible--;
 	}
 	player->y++;
@@ -92,14 +92,14 @@ void	move_right(t_screen *screen)
 	{
 		image = list->content;
 		if (image->x == player->x && image->y == player->y)
-			player->player_start = image;
+			player->start = image;
 		if (image->x == player->x + 1 && image->y == player->y)
-			player->player_dest = image;
+			player->dest = image;
 		list = list->next;
 	}
-	if (player->player_dest->asset == COLLECTION)
+	if (player->dest->asset == COLLECTION)
 	{
-		player->player_dest->asset = -1;
+		player->dest->asset = -1;
 		screen->count_collectible--;
 	}
 	player->x++;
@@ -121,14 +121,14 @@ void	move_left(t_screen *screen)
 	{
 		image = list->content;
 		if (image->x == player->x && image->y == player->y)
-			player->player_start = image;
+			player->start = image;
 		if (image->x == player->x - 1 && image->y == player->y)
-			player->player_dest = image;
+			player->dest = image;
 		list = list->next;
 	}
-	if (player->player_dest->asset == COLLECTION)
+	if (player->dest->asset == COLLECTION)
 	{
-		player->player_dest->asset = -1;
+		player->dest->asset = -1;
 		screen->count_collectible--;
 	}
 	player->x--;
