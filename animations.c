@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/24 17:00:32 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/24 19:22:06 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	animate(t_screen *screen)
 	//t_image	*asset;
 	static unsigned long	i = 0;
 
-	if (i % 100 == 0)
+	if (i % 1000 == 0)
 	{
 		list = screen->images;
 		while (list)

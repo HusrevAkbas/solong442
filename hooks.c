@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/24 17:18:23 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/24 19:09:38 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,10 @@ void	del_image(void *image)
 
 	img = image;
 //ADD MLX POINTER TO IMAGES TO BE ABLE TO DESTROY IMAGES
-	// mlx_destroy_image(img->img);
-	//free(img->img);
+	mlx_destroy_image(img->mlx, img->img);
 	if (img->bg)
 	{
-		// mlx_destroy_image(img->bg);
-		//free(img->bg->img);
+		mlx_destroy_image(img->mlx, img->bg->img);
 		free(img->bg);
 		img->bg = NULL;
 	}
@@ -57,6 +55,7 @@ void	clean_exit(t_screen *screen)
 		i--;
 		del_image(screen->assets[i]);
 	}
+	del_image(screen->big_picture);
 	free(screen->player);
 	mlx_destroy_window(screen->mlx ,screen->win);
 	mlx_destroy_display(screen->mlx);

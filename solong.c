@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solong.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 16:45:58 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/24 19:19:43 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	if (!screen.mlx)
 		clean_exit(&screen);
 	screen.win = mlx_new_window(screen.mlx, TILE_SIZE * (screen.map_w),
-				TILE_SIZE * (screen.map_h), "i like to move it");
+				TILE_SIZE * (screen.map_h), NULL);//"i like to move it");
 	if (!screen.win)
 		clean_exit(&screen);
 	put_images(&screen);

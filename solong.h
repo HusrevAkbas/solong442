@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/24 17:17:47 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/24 18:53:40 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 typedef struct s_image
 {
 	void	*img;
+	void	*mlx;
 	struct s_bg	*bg;
 	int		asset;	//player, collectible, passable, unpassable
 	unsigned int	frame;

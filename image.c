@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/24 17:00:32 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/24 19:23:27 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	set_bg_addr(t_bg *bg)
 void	set_image_attributes(t_image *img)
 {
 	img->img = NULL;
+	img->mlx = NULL;
 	img->bg = NULL;
 	img->address = NULL;
 	img->asset = 0;
@@ -113,6 +114,7 @@ void	get_assets(t_screen *screen)
 		if (!img->img)
 			clean_exit(screen);
 		set_img_addr(img);
+		img->mlx = screen->mlx;
 		screen->assets[i] = img;
 		i++;
 	}
@@ -152,10 +154,10 @@ void	overwrite_create_bg(t_bg *bg, t_image *img)
 
 	if (!bg || !img || !bg->img || !img->img)
 		ft_printf("Something is missing in 'overwrite create bg' func\n");
-	x = 1;
+	x = 0;
 	while (x + bg->offx < bg->width && x + img->offx < img->width)
 	{
-		y = 1;
+		y = 0;
 		while (y + bg->offy < bg->heigth && y + img->offy < img->heigth)
 		{
 			bg_addr = get_px_addr_bg(bg, x + bg->offx, y + bg->offy);
@@ -297,12 +299,14 @@ void	put_images(t_screen *screen)
 
 	screen->images = NULL;
 	screen->big_picture = malloc(sizeof(t_image));
+	set_image_attributes(screen->big_picture);
 	screen->big_picture->img = mlx_new_image(screen->mlx, TILE_SIZE * screen->map_w, TILE_SIZE * screen->map_h);
 	if (!screen->big_picture->img)
 		ft_printf("I can't see the big picture");
 	set_img_addr(screen->big_picture);
 	screen->big_picture->heigth = TILE_SIZE * screen->map_h;
 	screen->big_picture->width = TILE_SIZE * screen->map_w;
+	screen->big_picture->mlx = screen->mlx;
 	get_assets(screen);
 	int i = 0;
 	int j = 0;
@@ -315,6 +319,7 @@ void	put_images(t_screen *screen)
 			tile->x = j;
 			tile->y = i;
 			tile->asset = -1;
+			tile->mlx = screen->mlx;
 			set_tiles(screen, tile);
 			if (!screen->images)
 				screen->images = ft_lstnew(tile);
