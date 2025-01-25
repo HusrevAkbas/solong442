@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   solong.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/24 19:19:43 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/25 15:08:26 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (ft_printf("You need to set a map\n"));
+	ft_memset(&screen, 0, sizeof(t_screen));
 	screen.map = set_map(argv[1], &screen.count_collectible);
 	if (!screen.map)
 		return (ft_printf("Invalid map, invalid filename or wrong file"));
@@ -36,7 +37,7 @@ int	main(int argc, char **argv)
 	if (!screen.mlx)
 		clean_exit(&screen);
 	screen.win = mlx_new_window(screen.mlx, TILE_SIZE * (screen.map_w),
-				TILE_SIZE * (screen.map_h), NULL);//"i like to move it");
+				TILE_SIZE * (screen.map_h), "I LIKE TO MOVE IT MOVE IT");
 	if (!screen.win)
 		clean_exit(&screen);
 	put_images(&screen);

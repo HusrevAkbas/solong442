@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 12:36:33 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 15:26:25 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,18 @@ void	move_up(t_screen *screen);
 int		run_key_hook(int keycode, t_screen *args);
 
 //IMAGE
+void	get_assets(t_screen *screen);
+char	*get_px_addr(t_image *img, int x, int y);
+char	*get_px_addr_bg(t_bg *bg, int x, int y);
 void	overwrite(t_image *bg, t_image *img);
 void	overwrite_asset(t_image *bg, t_image *asset);
 void	overwrite_bg(t_image *img);
+void	overwrite_create_bg(t_bg *bg, t_image *img);
 void	put_tiles_to_big_pic(t_image *bg, t_image *img);
 void	put_images(t_screen *screen);
 void	set_exit_point(t_screen *screen, t_image *tile, int growth);
+void	set_bg_addr(t_bg *bg);
 void	set_img_addr(t_image *img);
-void	set_image_attributes(t_image *img);
 void	set_map_size(t_screen *screen);
 void	set_tiles(t_screen *screen, t_image *tile);
 

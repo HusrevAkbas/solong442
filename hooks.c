@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 12:19:21 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 15:29:13 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,21 +44,26 @@ void	clean_exit(t_screen *screen)
 {
 	int	i;
 
-	if (!screen)
-		return ;
-	ft_lstclear(&screen->images, &del_image);
+	if (screen->images)
+		ft_lstclear(&screen->images, &del_image);
 	clear_map(screen->map, screen->map_h - 1);
 	i = 9;
-	while (i > 0)
+	while (i > 0 && screen->assets[i])
 	{
 		i--;
 		del_image(screen->assets[i]);
 	}
-	del_image(screen->big_picture);
-	free(screen->player);
-	mlx_destroy_window(screen->mlx ,screen->win);
-	mlx_destroy_display(screen->mlx);
-	free(screen->mlx);
+	if (screen->big_picture)
+		del_image(screen->big_picture);
+	if (screen->player)
+		free(screen->player);
+	if (screen->win)
+		mlx_destroy_window(screen->mlx ,screen->win);
+	if (screen->mlx)
+	{
+		mlx_destroy_display(screen->mlx);
+		free(screen->mlx);
+	}
 	exit (0);
 }
 int	clean_exit_button(t_screen *screen)
