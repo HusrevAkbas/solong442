@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 15:27:04 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:14:21 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ char	*get_px_addr_bg(t_bg *bg, int x, int y)
 void	set_img_addr(t_image *img)
 {
 	img->address = mlx_get_data_addr(img->img, &img->bits_p_px,
-				&img->linelen, &img->endian);
+			&img->linelen, &img->endian);
 }
 
 void	set_bg_addr(t_bg *bg)
 {
 	bg->address = mlx_get_data_addr(bg->img, &bg->bits_p_px,
-				&bg->linelen, &bg->endian);
+			&bg->linelen, &bg->endian);
 }
 
 void	get_assets(t_screen *screen)
@@ -57,7 +57,8 @@ void	get_assets(t_screen *screen)
 		if (!img)
 			ft_printf("malloc fail in get assets");
 		ft_memset(img, 0, sizeof(t_image));
-		img->img = mlx_xpm_file_to_image(screen->mlx, pathmap[i], &img->width, &img->heigth);
+		img->img = mlx_xpm_file_to_image(screen->mlx, pathmap[i],
+				&img->width, &img->heigth);
 		if (!img->img)
 			clean_exit(screen);
 		set_img_addr(img);

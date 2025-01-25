@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 12:27:29 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:16:13 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ void	move_player(t_screen *screen)
 	overwrite_asset(screen->big_picture, asset);
 	if (screen->count_collectible == 0 && screen->map[dest->y][dest->x] == 'E'
 		&& player->px_move == 0)
-		{
-			ft_printf("You won !");
-			clean_exit(screen);
-		}
+	{
+		ft_printf("You won !");
+		clean_exit(screen);
+	}
 }
 
 int	animate(t_screen *screen)
 {
-	t_list	*list;
-	t_image	*this_img;
+	t_list					*list;
+	t_image					*this_img;
 	static unsigned long	i = 0;
 
 	if (i % 8000 == 0)
@@ -116,10 +116,12 @@ int	animate(t_screen *screen)
 		else
 		{
 			screen->big_picture->offy = screen->player->y * TILE_SIZE + 15;
-			screen->big_picture->offx = screen->player->x *TILE_SIZE + 15;
-			overwrite_asset(screen->big_picture, screen->assets[screen->player->asset]);
+			screen->big_picture->offx = screen->player->x * TILE_SIZE + 15;
+			overwrite_asset(screen->big_picture,
+				screen->assets[screen->player->asset]);
 		}
-		mlx_put_image_to_window(screen->mlx, screen->win, screen->big_picture->img, 0, 0);
+		mlx_put_image_to_window(screen->mlx, screen->win,
+			screen->big_picture->img, 0, 0);
 	}
 	i++;
 	return (i);

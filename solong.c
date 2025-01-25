@@ -6,16 +6,40 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 15:08:26 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:11:41 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
+int	is_filename_ok(char *arg)
+{
+	int	length;
+
+	if (!arg)
+		return (0);
+	length = ft_strlen(arg);
+	if (length <= 4)
+		return (0);
+	if (arg[length - 4] != '.' || arg[length - 3] != 'b'
+		|| arg[length - 2] != 'e' || arg[length - 1] != 'r')
+		return (0);
+	return (1);
+}
+
+void	set_map_size(t_screen *screen)
+{
+	int	heigth;
+
+	screen->map_w = ft_strlen(screen->map[0]);
+	heigth = 0;
+	while (screen->map[heigth])
+		heigth++;
+	screen->map_h = heigth;
+}
+
 int	main(int argc, char **argv)
 {
-	(void) argc;
-	(void) argv;
 	t_screen	screen;
 
 	if (argc != 2)
@@ -26,18 +50,11 @@ int	main(int argc, char **argv)
 		return (ft_printf("Invalid map, invalid filename or wrong file"));
 	screen.count_moves = 0;
 	set_map_size(&screen);
-	int i = 0;
-	while (screen.map[i])
-	{
-		ft_printf("%s\n", screen.map[i]);
-		i++;
-	}
-	ft_printf("map w: %i, map h %i\n", screen.map_w, screen.map_h);
 	screen.mlx = mlx_init();
 	if (!screen.mlx)
 		clean_exit(&screen);
 	screen.win = mlx_new_window(screen.mlx, TILE_SIZE * (screen.map_w),
-				TILE_SIZE * (screen.map_h), "I LIKE TO MOVE IT MOVE IT");
+			TILE_SIZE * (screen.map_h), "I LIKE TO MOVE IT MOVE IT");
 	if (!screen.win)
 		clean_exit(&screen);
 	put_images(&screen);

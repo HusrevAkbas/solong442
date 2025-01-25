@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 15:26:25 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:10:43 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "mlx.h"
 // # include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
-#include "fcntl.h"
+# include "fcntl.h"
 //#include "limits.h"
 
 # define TILE_SIZE	63
@@ -39,26 +39,25 @@
 # define FLOWERS	8
 # define FLOWERS_PATH	"assets/flowers.xpm"
 
-
 typedef struct s_image
 {
-	void	*img;
-	void	*mlx;
-	struct s_bg	*bg;
-	int		asset;	//player, collectible, passable, unpassable
+	void			*img;
+	void			*mlx;
+	struct s_bg		*bg;
+	int				asset;	//player, collectible, passable, unpassable
 	unsigned int	frame;
-	int		wid_per_frame;
-	int		width;
-	int		heigth;
-	char	*address;
-	int		bits_p_px;
-	int		linelen;
-	int		endian;
-	int		x;
-	int		y;
-	int		offx;
-	int		offy;
-	int		direction;
+	int				wid_per_frame;
+	int				width;
+	int				heigth;
+	char			*address;
+	int				bits_p_px;
+	int				linelen;
+	int				endian;
+	int				x;
+	int				y;
+	int				offx;
+	int				offy;
+	int				direction;
 	// struct s_image	*next;
 }	t_image;
 
@@ -77,19 +76,19 @@ typedef struct s_bg
 
 typedef struct s_player
 {
-	int		asset;	//player, collectible, passable, unpassable
-	unsigned int		frame;
-	int		wid_per_frame;
-	int		width;
-	int		heigth;
-	int		x;
-	int		y;
-	int		offx;
-	int		offy;
+	int				asset;	//player, collectible, passable, unpassable
+	unsigned int	frame;
+	int				wid_per_frame;
+	int				width;
+	int				heigth;
+	int				x;
+	int				y;
+	int				offx;
+	int				offy;
 	//folded 0: down, 1: right, 2: up, 3: left
 	//opened 0: right, 1: down, 2: up, 3: left
-	int		direction;
-	int		px_move;
+	int				direction;
+	int				px_move;
 	struct s_image	*start;
 	struct s_image	*dest;
 	struct s_player	*next;
@@ -97,17 +96,17 @@ typedef struct s_player
 
 typedef struct s_screen
 {
-	void	*mlx;
-	void	*win;
-	int		map_w;
-	int		map_h;
-	int		count_moves;
-	int		count_collectible;
+	void			*mlx;
+	void			*win;
+	int				map_w;
+	int				map_h;
+	int				count_moves;
+	int				count_collectible;
 	struct s_image	*big_picture;
 	struct s_list	*images;
 	struct s_image	*assets[9];
 	struct s_player	*player;
-	char	**map;
+	char			**map;
 }	t_screen;
 
 typedef struct s_mapcheck
@@ -169,7 +168,10 @@ void	set_bottom_border(t_screen *screen, t_image *tile);
 
 //MAP
 char	**clear_map(char **map, int index);
+void	find_player_coordinates(char **map, t_mapcheck *checker);
+int		is_filename_ok(char *arg);
 char	**set_map(char *arg, int *collectible_count);
+int		validate_map(char **map);
 
 //UTILS
 void	clean_exit(t_screen *args);

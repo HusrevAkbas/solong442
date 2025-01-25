@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 15:29:13 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:13:43 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 	a: 97
 	s: 115
 	d: 100
+	r: 114
 	space: 32
 	esc: 65307
 	left arrow: 65361
@@ -25,6 +26,7 @@
 	backspace: 65288
 	enter: 65293
 */
+
 void	del_image(void *image)
 {
 	t_image	*img;
@@ -40,6 +42,7 @@ void	del_image(void *image)
 	free(img);
 	img = NULL;
 }
+
 void	clean_exit(t_screen *screen)
 {
 	int	i;
@@ -58,7 +61,7 @@ void	clean_exit(t_screen *screen)
 	if (screen->player)
 		free(screen->player);
 	if (screen->win)
-		mlx_destroy_window(screen->mlx ,screen->win);
+		mlx_destroy_window(screen->mlx, screen->win);
 	if (screen->mlx)
 	{
 		mlx_destroy_display(screen->mlx);
@@ -66,6 +69,7 @@ void	clean_exit(t_screen *screen)
 	}
 	exit (0);
 }
+
 int	clean_exit_button(t_screen *screen)
 {
 	clean_exit(screen);
@@ -74,7 +78,6 @@ int	clean_exit_button(t_screen *screen)
 
 int	run_key_hook(int keycode, t_screen *screen)
 {
-	//ft_printf("keycode: %i", keycode);
 	if (keycode == 65307)
 		clean_exit(screen);
 	if (keycode == 65362 || keycode == 119)

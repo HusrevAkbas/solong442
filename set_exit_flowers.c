@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 12:50:22 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 16:16:38 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ void	put_flowers(t_screen *screen, t_image *tile, int growth)
 {
 	t_image	*asset;
 
-	if (!screen || !tile)
-		return ;
-	//put flowers
 	asset = screen->assets[FLOWERS];
 	asset->wid_per_frame = 12;
 	asset->offx = 0 * asset->wid_per_frame;
@@ -44,8 +41,6 @@ void	set_exit_point(t_screen *screen, t_image *tile, int growth)
 {
 	t_image	*asset;
 
-	if (!screen || !tile)
-		return ;
 	tile->asset = GRASS;
 	asset = screen->assets[tile->asset];
 	tile->offx = 16;
