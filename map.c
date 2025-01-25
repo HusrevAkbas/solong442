@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:06 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/23 15:04:36 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/25 12:53:07 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ int	count_lines(char *filename)
 
 char	**clear_map(char **map, int index)
 {
-	while (index >= 0)
+	if (!map)
+		return (NULL);
+	while (*map && index >= 0)
 	{
 		free(map[index]);
 		index--;

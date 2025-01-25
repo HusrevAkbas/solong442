@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/24 19:09:38 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/25 12:19:21 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	del_image(void *image)
 	t_image	*img;
 
 	img = image;
-//ADD MLX POINTER TO IMAGES TO BE ABLE TO DESTROY IMAGES
 	mlx_destroy_image(img->mlx, img->img);
 	if (img->bg)
 	{

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   solong.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/24 18:53:40 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/25 12:36:33 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
 # include "libft/libft.h"
-// # include "mlx.h"
-# include "mlx_linux/mlx.h" //for WSL2
+# include "mlx.h"
+// # include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
 #include "fcntl.h"
 //#include "limits.h"
@@ -152,6 +152,16 @@ void	set_img_addr(t_image *img);
 void	set_image_attributes(t_image *img);
 void	set_map_size(t_screen *screen);
 void	set_tiles(t_screen *screen, t_image *tile);
+
+//FENCES
+void	set_top_left_corner(t_screen *screen, t_image *tile);
+void	set_top_right_corner(t_screen *screen, t_image *tile);
+void	set_bottom_left_corner(t_screen *screen, t_image *tile);
+void	set_bottom_right_corner(t_screen *screen, t_image *tile);
+void	set_left_border(t_screen *screen, t_image *tile);
+void	set_rigth_border(t_screen *screen, t_image *tile);
+void	set_top_border(t_screen *screen, t_image *tile);
+void	set_bottom_border(t_screen *screen, t_image *tile);
 
 //MAP
 char	**clear_map(char **map, int index);
