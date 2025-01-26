@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 00:29:03 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 00:37:55 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	move_enemy(t_screen *screen)
 	asset->offx = enemy->frame % 10 * asset->wid_per_frame;
 	asset->offy = 0;
 	enemy->frame++;
-
 ft_printf(" move des y %d, des x %d\n", enemy->y, enemy->x);
 //when changing direction to move up skips one square ?????
 	overwrite_asset(screen->big_picture, asset);
