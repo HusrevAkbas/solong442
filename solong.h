@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 19:11:40 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/26 23:39:27 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_player
 	int				offy;
 	//folded 0: down, 1: right, 2: up, 3: left
 	//opened 0: right, 1: down, 2: up, 3: left
+	//enemy  1 right 2 down -2 up -1 left 0: stay
 	int				direction;
 	int				px_move;
 	struct s_image	*start;
