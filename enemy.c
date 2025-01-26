@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 18:48:07 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/26 23:45:14 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	set_enemy(t_screen *screen, t_image *tile)
 	asset->offy = 0;
 	enemy->px_move = 0;
 	overwrite_asset(tile, asset);
+	move_up_enemy(screen, enemy);
 	list = ft_lstnew(enemy);
 	if (!list)
 		clean_exit(screen);

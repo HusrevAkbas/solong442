@@ -6,21 +6,37 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 23:41:04 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 00:26:47 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
+
+void	next_move_enemy(t_screen *screen, t_player *enemy)
+{
+	
+	if (enemy->direction == 0)
+		return ;
+	if (enemy->direction == 2)
+		move_down_enemy(screen, enemy);
+	if (enemy->direction == -1)
+		move_left_enemy(screen, enemy);
+	if (enemy->direction == -2)
+		move_up_enemy(screen, enemy);
+	if (enemy->direction == 1)
+		move_right_enemy(screen, enemy);
+}
 
 void	move_up_enemy(t_screen *screen, t_player *enemy)
 {
 	t_list	*list;
 	t_image	*image;
 
-	if (screen->map[enemy->y - 1][enemy->x] == '1'
-		|| enemy->dest->asset == COLLECTION
-		|| screen->map[enemy->y - 1][enemy->x] == 'E')
-		return ; //switch direction
+	if (screen->map[enemy->y - 1][enemy->x] == '1')
+	{
+		move_down_enemy(screen, enemy);
+		return ;
+	}
 	list = screen->images;
 	while (list)
 	{
@@ -31,9 +47,13 @@ void	move_up_enemy(t_screen *screen, t_player *enemy)
 			enemy->dest = image;
 		list = list->next;
 	}
+	if (enemy->dest->asset == COLLECTION)
+	{
+		move_down_enemy(screen, enemy);
+		return ;
+	}
 	enemy->y--;
 	enemy->direction = -2;
-	enemy->frame = 1;
 	enemy->px_move = 64;
 }
 
@@ -42,10 +62,11 @@ void	move_down_enemy(t_screen *screen, t_player *enemy)
 	t_list		*list;
 	t_image		*image;
 
-	if (screen->map[enemy->y + 1][enemy->x] == '1'
-		|| enemy->dest->asset == COLLECTION
-		|| screen->map[enemy->y - 1][enemy->x] == 'E')
+	if (screen->map[enemy->y + 1][enemy->x] == '1')
+	{
+		move_up_enemy(screen, enemy);
 		return ;
+	}
 	list = screen->images;
 	while (list)
 	{
@@ -58,12 +79,11 @@ void	move_down_enemy(t_screen *screen, t_player *enemy)
 	}
 	if (enemy->dest->asset == COLLECTION)
 	{
-		enemy->dest->asset = -1;
-		screen->count_collectible--;
+		move_up_enemy(screen, enemy);
+		return ;
 	}
 	enemy->y++;
 	enemy->direction = 2;
-	enemy->frame = 1;
 	enemy->px_move = 64;
 }
 
@@ -73,9 +93,11 @@ void	move_right_enemy(t_screen *screen, t_player *enemy)
 	t_image		*image;
 
 	if (screen->map[enemy->y][enemy->x + 1] == '1'
-		|| enemy->dest->asset == COLLECTION
-		|| screen->map[enemy->y - 1][enemy->x] == 'E')
+		|| screen->map[enemy->y][enemy->x + 1] == 'C')
+	{
+		move_left_enemy(screen, enemy);
 		return ;
+	}
 	list = screen->images;
 	while (list)
 	{
@@ -88,7 +110,6 @@ void	move_right_enemy(t_screen *screen, t_player *enemy)
 	}
 	enemy->x++;
 	enemy->direction = 1;
-	enemy->frame = 1;
 	enemy->px_move = 64;
 }
 
@@ -98,9 +119,11 @@ void	move_left_enemy(t_screen *screen, t_player *enemy)
 	t_image		*image;
 
 	if (screen->map[enemy->y][enemy->x - 1] == '1'
-		|| enemy->dest->asset == COLLECTION
-		|| screen->map[enemy->y - 1][enemy->x] == 'E')
+		|| screen->map[enemy->y][enemy->x - 1] == 'C')
+	{
+		move_right_enemy(screen, enemy);
 		return ;
+	}
 	list = screen->images;
 	while (list)
 	{
@@ -113,6 +136,5 @@ void	move_left_enemy(t_screen *screen, t_player *enemy)
 	}
 	enemy->x--;
 	enemy->direction = -1;
-	enemy->frame = 1;
 	enemy->px_move = 64;
 }

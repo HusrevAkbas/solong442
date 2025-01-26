@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 23:39:27 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 00:05:58 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,16 @@ int		animate(t_screen *screen);
 void	animate_tree(t_screen *screen, t_image *image);
 void	move_player(t_screen *screen);
 
-//HOOKS
+//HOOKS AND MOVES
 void	move_down(t_screen *screen);
 void	move_left(t_screen *screen);
 void	move_right(t_screen *screen);
 void	move_up(t_screen *screen);
+void	move_down_enemy(t_screen *screen, t_player *enemy);
+void	move_left_enemy(t_screen *screen, t_player *enemy);
+void	move_right_enemy(t_screen *screen, t_player *enemy);
+void	move_up_enemy(t_screen *screen, t_player *enemy);
+void	next_move_enemy(t_screen *screen, t_player *enemy);
 int		run_key_hook(int keycode, t_screen *args);
 
 //IMAGE

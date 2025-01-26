@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 19:12:03 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 00:29:03 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,29 +89,30 @@ void	move_enemy(t_screen *screen)
 
 	node = screen->enemies;
 	enemy = node->content;
-
 	asset = screen->assets[enemy->asset];
-	//enemy->px_move -= 8;
 	screen->big_picture->offx = enemy->x * TILE_SIZE;
 	screen->big_picture->offy = enemy->y * TILE_SIZE;
-	if (enemy->direction == 0)
-		screen->big_picture->offy -= enemy->px_move;
-	if (enemy->direction == 1)
-		screen->big_picture->offx -= enemy->px_move;
-	if (enemy->direction == 2)
-		screen->big_picture->offy += enemy->px_move;
-	if (enemy->direction == 3)
-		screen->big_picture->offx += enemy->px_move;
-	asset->offx = enemy->direction * asset->wid_per_frame;
-	asset->offy = (enemy->frame % 4) * asset->wid_per_frame;
+	if (enemy->direction)
+	{
+		enemy->px_move -= 8;
+		if (enemy->direction == 2)
+			screen->big_picture->offy -= enemy->px_move;
+		if (enemy->direction == -1)
+			screen->big_picture->offx -= enemy->px_move;
+		if (enemy->direction == -2)
+			screen->big_picture->offy += enemy->px_move;
+		if (enemy->direction == 1)
+			screen->big_picture->offx += enemy->px_move;
+	}
+	asset->offx = enemy->frame % 10 * asset->wid_per_frame;
+	asset->offy = 0;
 	enemy->frame++;
+
+ft_printf(" move des y %d, des x %d\n", enemy->y, enemy->x);
+//when changing direction to move up skips one square ?????
 	overwrite_asset(screen->big_picture, asset);
-	// if (screen->map[enemy->dest->y][enemy->dest->x] == 'E'
-	// 	&& enemy->px_move == 0)
-	// {
-	// 	ft_printf("You lost !");
-	// 	clean_exit(screen);
-	// }
+	if (enemy->px_move == 0)
+		next_move_enemy(screen, enemy);
 }
 
 t_list	*set_next_frame(t_screen *screen, t_list *list)
