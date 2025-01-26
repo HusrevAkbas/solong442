@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 14:30:45 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/26 19:12:03 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,39 @@ void	move_player(t_screen *screen)
 	}
 }
 
+void	move_enemy(t_screen *screen)
+{
+	t_image		*asset;
+	t_list		*node;
+	t_player	*enemy;
+
+	node = screen->enemies;
+	enemy = node->content;
+
+	asset = screen->assets[enemy->asset];
+	//enemy->px_move -= 8;
+	screen->big_picture->offx = enemy->x * TILE_SIZE;
+	screen->big_picture->offy = enemy->y * TILE_SIZE;
+	if (enemy->direction == 0)
+		screen->big_picture->offy -= enemy->px_move;
+	if (enemy->direction == 1)
+		screen->big_picture->offx -= enemy->px_move;
+	if (enemy->direction == 2)
+		screen->big_picture->offy += enemy->px_move;
+	if (enemy->direction == 3)
+		screen->big_picture->offx += enemy->px_move;
+	asset->offx = enemy->direction * asset->wid_per_frame;
+	asset->offy = (enemy->frame % 4) * asset->wid_per_frame;
+	enemy->frame++;
+	overwrite_asset(screen->big_picture, asset);
+	// if (screen->map[enemy->dest->y][enemy->dest->x] == 'E'
+	// 	&& enemy->px_move == 0)
+	// {
+	// 	ft_printf("You lost !");
+	// 	clean_exit(screen);
+	// }
+}
+
 t_list	*set_next_frame(t_screen *screen, t_list *list)
 {
 	t_image	*this_img;
@@ -118,6 +151,7 @@ int	animate(t_screen *screen)
 		overwrite_asset(screen->big_picture,
 			screen->assets[screen->player->asset]);
 	}
+	move_enemy(screen);
 	mlx_put_image_to_window(screen->mlx, screen->win,
 		screen->big_picture->img, 0, 0);
 	put_counter(screen);

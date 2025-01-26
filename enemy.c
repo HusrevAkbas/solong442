@@ -6,18 +6,47 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 16:20:28 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/26 18:48:07 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
+
+void	set_enemy(t_screen *screen, t_image *tile)
+{
+	t_list		*list;
+	t_player	*enemy;
+	t_image		*asset;
+
+	enemy = ft_calloc(1, sizeof(t_player));
+	if (!enemy)
+		clean_exit(screen);
+	enemy->x = tile->x;
+	enemy->y = tile->y;
+	enemy->asset = EYEMONSTER;
+	enemy->frame = 0;
+	asset = screen->assets[enemy->asset];
+	asset->wid_per_frame = 64;
+	enemy->direction = 0;
+	asset->offx = 0;
+	asset->offy = 0;
+	enemy->px_move = 0;
+	overwrite_asset(tile, asset);
+	list = ft_lstnew(enemy);
+	if (!list)
+		clean_exit(screen);
+	if (screen->enemies)
+		ft_lstadd_back(&screen->enemies, list);
+	else
+		screen->enemies = list;
+}
 
 int	find_where(char **map, t_enemycheck *checker)
 {
 	int	i;
 
 	i = 1;
-	while (map[checker->y][i] && map[checker->y][i] != 'F')
+	while (map[checker->y][i] && map[checker->y][i] == '0')
 	{
 		checker->left++;
 		if (map[checker->y][i] == '1')
@@ -25,7 +54,7 @@ int	find_where(char **map, t_enemycheck *checker)
 		i++;
 	}
 	i++;
-	while (map[checker->y][i] && map[checker->y][i] != 'F')
+	while (map[checker->y][i] && map[checker->y][i] == '0')
 	{
 		if (map[checker->y][i] == '1')
 			break;
@@ -33,7 +62,7 @@ int	find_where(char **map, t_enemycheck *checker)
 		i++;
 	}
 	i = 1;
-	while (map[i][checker->x] && map[i][checker->x] != 'F')
+	while (map[i][checker->x] && map[i][checker->x] == '0')
 	{
 		checker->up++;
 		if (map[i][checker->x] == '1')
@@ -41,7 +70,7 @@ int	find_where(char **map, t_enemycheck *checker)
 		i++;
 	}
 	i++;
-	while (map[i][checker->x] && map[i][checker->x] != 'F')
+	while (map[i][checker->x] && map[i][checker->x] == '0')
 	{
 		if (map[i][checker->x] == '1')
 			break;

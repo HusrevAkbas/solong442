@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_tiles.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 12:50:16 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/26 18:45:38 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	set_tree(t_screen *screen, t_image *tile)
 {
 	t_image	*asset;
 
-	if (!screen || ! tile)
-		return ;
 	tile->asset = TREE;
 	tile->frame = 0;
 	asset = screen->assets[tile->asset];
@@ -35,8 +33,6 @@ void	set_player(t_screen *screen, t_image *tile)
 	t_player	*player;
 	t_image		*asset;
 
-	if (!screen || ! tile)
-		return ;
 	player = malloc(sizeof(t_image));
 	player->x = tile->x;
 	player->y = tile->y;
@@ -55,8 +51,6 @@ void	set_collectible(t_screen *screen, t_image *tile)
 {
 	t_image	*asset;
 
-	if (!screen || ! tile)
-		return ;
 	tile->asset = COLLECTION;
 	tile->frame = 0;
 	tile->direction = 0;
@@ -72,8 +66,6 @@ void	set_collectible(t_screen *screen, t_image *tile)
 
 void	set_tiles_more(t_screen *screen, t_image *tile)
 {
-	if (!screen || ! tile)
-		return ;
 	if (screen->map[tile->y][tile->x] == '1')
 		set_tree(screen, tile);
 	else if (screen->map[tile->y][tile->x] == 'P')
@@ -82,12 +74,12 @@ void	set_tiles_more(t_screen *screen, t_image *tile)
 		set_collectible(screen, tile);
 	else if (screen->map[tile->y][tile->x] == 'E')
 		set_exit_point(screen, tile, 5);
+	else if (screen->map[tile->y][tile->x] == 'F')
+		set_enemy(screen, tile);
 }
 
 void	set_tiles(t_screen *screen, t_image *tile)
 {
-	if (!screen || ! tile)
-		return ;
 	if (tile->x == 0 && tile->y == 0)
 		set_top_left_corner(screen, tile);
 	else if (tile->x == screen->map_w - 1 && tile->y == 0)

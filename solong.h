@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 16:08:16 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/26 19:11:40 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ typedef struct s_player
 	int				px_move;
 	struct s_image	*start;
 	struct s_image	*dest;
-	struct s_player	*next;
 }	t_player;
 
 typedef struct s_screen
@@ -105,6 +104,7 @@ typedef struct s_screen
 	struct s_list	*images;
 	struct s_image	*assets[9];
 	struct s_player	*player;
+	struct s_list	*enemies;
 	char			**map;
 }	t_screen;
 
@@ -161,6 +161,7 @@ void	overwrite_create_bg(t_bg *bg, t_image *img);
 void	put_counter(t_screen *screen);
 void	put_images(t_screen *screen);
 void	put_tiles_to_big_pic(t_image *bg, t_image *img);
+void	set_enemy(t_screen *screen, t_image *tile);
 void	set_exit_point(t_screen *screen, t_image *tile, int growth);
 void	set_bg_addr(t_bg *bg);
 void	set_img_addr(t_image *img);

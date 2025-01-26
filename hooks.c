@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 16:13:43 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/26 19:11:45 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	del_image(void *image)
 	img = NULL;
 }
 
+void	del_enemy(void *content)
+{
+	free(content);
+}
+
 void	clean_exit(t_screen *screen)
 {
 	int	i;
@@ -56,6 +61,8 @@ void	clean_exit(t_screen *screen)
 		i--;
 		del_image(screen->assets[i]);
 	}
+	if (screen->enemies)
+		ft_lstclear(&screen->enemies, &del_enemy);
 	if (screen->big_picture)
 		del_image(screen->big_picture);
 	if (screen->player)
