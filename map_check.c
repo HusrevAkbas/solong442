@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:06 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 16:21:09 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/26 16:08:44 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_line_valid(char *line, t_mapcheck *checker, int y, int is_last)
 		if ((y == 0 || is_last == 1) && line[i] != '1')
 			return (0);
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'P'
-			&& line[i] != 'C' && line[i] != 'E')
+			&& line[i] != 'C' && line[i] != 'E' && line[i] != 'F')
 			return (0);
 		if (line[i] == 'C')
 			checker->collectibles++;
@@ -82,7 +82,7 @@ int	can_be_finished(char **map, t_mapcheck *checker)
 	int		i;
 	int		res;
 
-	map_copy = malloc((checker->line + 1) * sizeof(char *));
+	map_copy = ft_calloc((checker->line + 1), sizeof(char *));
 	if (!map_copy)
 		return (0);
 	i = 0;
@@ -96,7 +96,7 @@ int	can_be_finished(char **map, t_mapcheck *checker)
 		}
 		i++;
 	}
-	map_copy[i] = NULL;
+	check_map_for_enemy(map_copy);
 	find_player_coordinates(map_copy, checker);
 	fill_map(map_copy, checker->line, checker->width);
 	res = check_map_after_fill_map(map_copy);
@@ -111,10 +111,8 @@ int	validate_map(char **map)
 
 	if (!map || !*map)
 		return (0);
+	ft_memset(&checker, 0, sizeof(t_mapcheck));
 	checker.width = ft_strlen(map[0]);
-	checker.player = 0;
-	checker.collectibles = 0;
-	checker.exit = 0;
 	i = 0;
 	while (map[i])
 	{

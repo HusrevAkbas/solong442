@@ -6,7 +6,7 @@
 /*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 13:39:35 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/26 16:08:16 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,17 @@ typedef struct s_mapcheck
 	int	line;
 }	t_mapcheck;
 
+typedef struct s_enemycheck
+{
+	int	y;
+	int	x;
+	int	up;
+	int	right;
+	int	left;
+	int	down;
+	int	direction;
+}	t_enemycheck;
+
 /*
 	1	get arg			filename: char*	+
 	2	set map tiles	map: char**		+
@@ -167,6 +178,7 @@ void	set_top_border(t_screen *screen, t_image *tile);
 void	set_bottom_border(t_screen *screen, t_image *tile);
 
 //MAP
+int		check_map_for_enemy(char **map);
 char	**clear_map(char **map, int index);
 void	find_player_coordinates(char **map, t_mapcheck *checker);
 int		is_filename_ok(char *arg);
