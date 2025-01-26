@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 15:36:28 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/26 14:31:25 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
+
+void	put_counter(t_screen *screen)
+{
+	char	*moves;
+
+	moves = ft_itoa(screen->count_moves);
+	if (!moves)
+		return ;
+	mlx_string_put(screen->mlx, screen->win, 68, 24, 0xffffff, "Your moves: ");
+	mlx_string_put(screen->mlx, screen->win, 136, 24, 0xffffff, moves);
+	free(moves);
+}
 
 t_bg	*new_bg(t_screen *screen, int width, int heigth)
 {

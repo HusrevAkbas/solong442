@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   solong.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/25 16:10:43 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/26 13:39:35 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SOLONG_H
 # define SOLONG_H
 # include "libft/libft.h"
-# include "mlx.h"
-// # include "mlx_linux/mlx.h" //for WSL2
+// # include "mlx.h"
+# include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
 # include "fcntl.h"
 //#include "limits.h"
@@ -58,7 +58,6 @@ typedef struct s_image
 	int				offx;
 	int				offy;
 	int				direction;
-	// struct s_image	*next;
 }	t_image;
 
 typedef struct s_bg
@@ -124,8 +123,8 @@ typedef struct s_mapcheck
 	3	create images	images: void*	+
 	4	put images to window			+
 	5	set event - hooks				+
-	6	create animations
-	7	free before exit
+	6	create animations				+
+	7	free before exit				+
 */
 
 //ANIMATIONS
@@ -148,8 +147,9 @@ void	overwrite(t_image *bg, t_image *img);
 void	overwrite_asset(t_image *bg, t_image *asset);
 void	overwrite_bg(t_image *img);
 void	overwrite_create_bg(t_bg *bg, t_image *img);
-void	put_tiles_to_big_pic(t_image *bg, t_image *img);
+void	put_counter(t_screen *screen);
 void	put_images(t_screen *screen);
+void	put_tiles_to_big_pic(t_image *bg, t_image *img);
 void	set_exit_point(t_screen *screen, t_image *tile, int growth);
 void	set_bg_addr(t_bg *bg);
 void	set_img_addr(t_image *img);
