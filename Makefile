@@ -5,7 +5,7 @@ LIBFTCHECK := libcheck/libft.a
  
 SRC := solong.c hooks.c image.c map.c set_tiles.c moves.c animations.c\
 	fence_corners.c fence_borders.c set_exit_flowers.c image_overwrite.c\
-	image_utils.c map_check.c enemy.c moves_enemy.c
+	image_utils.c map_check.c enemy.c enemy_moves.c
 OBJ := $(SRC:.c=.o)
 NAME := so_long
 NAMEBONUS := so_long_bonus

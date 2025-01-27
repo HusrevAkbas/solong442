@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 10:54:03 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/27 11:47:19 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ void	move_player(t_screen *screen)
 	screen->big_picture->offy = screen->player->y * TILE_SIZE + 15;
 	if (screen->player->direction == 2)
 		screen->big_picture->offy += screen->player->px_move;
-	if (screen->player->direction == 0)
-		screen->big_picture->offx -= screen->player->px_move;
 	if (screen->player->direction == 1)
+		screen->big_picture->offx -= screen->player->px_move;
+	if (screen->player->direction == 0)
 		screen->big_picture->offy -= screen->player->px_move;
 	if (screen->player->direction == 3)
 		screen->big_picture->offx += screen->player->px_move;
@@ -112,6 +112,8 @@ void	move_enemy(t_screen *screen)
 
 	node = screen->enemies;
 	enemy = node->content;
+	if (enemy->px_move == 0)
+		next_move_enemy(screen, enemy);
 	asset = screen->assets[enemy->asset];
 	screen->big_picture->offx = enemy->x * TILE_SIZE;
 	screen->big_picture->offy = enemy->y * TILE_SIZE;
@@ -121,18 +123,16 @@ void	move_enemy(t_screen *screen)
 		if (enemy->direction == 2)
 			screen->big_picture->offy -= enemy->px_move;
 		if (enemy->direction == -1)
-			screen->big_picture->offx -= enemy->px_move;
+			screen->big_picture->offx += enemy->px_move;
 		if (enemy->direction == -2)
 			screen->big_picture->offy += enemy->px_move;
 		if (enemy->direction == 1)
-			screen->big_picture->offx += enemy->px_move;
+			screen->big_picture->offx -= enemy->px_move;
 	}
 	asset->offx = enemy->frame % 10 * asset->wid_per_frame;
 	asset->offy = 0;
 	enemy->frame++;
 	overwrite_asset(screen->big_picture, asset);
-	if (enemy->px_move == 0)
-		next_move_enemy(screen, enemy);
 }
 
 t_list	*set_next_frame(t_screen *screen, t_list *list)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 14:31:25 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 11:35:55 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,20 @@ void	create_tiles(t_screen *screen)
 	}
 }
 
+void	first_move_enemies(t_screen *screen)
+{
+	t_list	*list;
+	t_player	*enemy;
+
+	list = screen->enemies;
+	while (list)
+	{
+		enemy = list->content;
+		next_move_enemy(screen, enemy);
+		list = list->next;
+	}
+}
+
 void	put_images(t_screen *screen)
 {
 	screen->images = NULL;
@@ -114,6 +128,7 @@ void	put_images(t_screen *screen)
 	screen->big_picture->mlx = screen->mlx;
 	get_assets(screen);
 	create_tiles(screen);
+	first_move_enemies(screen);
 	mlx_put_image_to_window(screen->mlx, screen->win,
 		screen->big_picture->img, 0, 0);
 }

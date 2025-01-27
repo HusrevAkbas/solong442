@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 10:50:56 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/27 11:02:42 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	set_player(t_screen *screen, t_image *tile)
 	player = malloc(sizeof(t_image));
 	player->x = tile->x;
 	player->y = tile->y;
-	player->asset = PEACOCK_OP;
+	player->asset = PEACOCK_FL;
 	player->frame = 0;
 	asset = screen->assets[player->asset];
-	asset->wid_per_frame = 32;
-	player->direction = 2;
+	asset->wid_per_frame = 36;
+	player->direction = 0;
 	asset->offx = asset->wid_per_frame * player->direction;
 	asset->offy = 0;
 	player->px_move = 0;

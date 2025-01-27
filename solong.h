@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 10:50:17 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/27 11:08:48 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ typedef struct s_enemycheck
 	int	left;
 	int	down;
 	int	direction;
+	int	char_f;
 }	t_enemycheck;
 
 /*
