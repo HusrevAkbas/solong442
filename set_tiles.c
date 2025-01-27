@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_tiles.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 18:45:38 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 10:50:56 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	set_player(t_screen *screen, t_image *tile)
 	player = malloc(sizeof(t_image));
 	player->x = tile->x;
 	player->y = tile->y;
-	player->asset = PEACOCK_FL;
+	player->asset = PEACOCK_OP;
 	player->frame = 0;
 	asset = screen->assets[player->asset];
-	asset->wid_per_frame = 36;
+	asset->wid_per_frame = 32;
 	player->direction = 2;
 	asset->offx = asset->wid_per_frame * player->direction;
 	asset->offy = 0;

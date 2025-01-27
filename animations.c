@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 00:37:55 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 10:54:03 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,27 @@ void	animate_collectible(t_screen *screen, t_image *image)
 	put_tiles_to_big_pic(screen->big_picture, image);
 }
 
+int	check_enemy_touch(t_screen *screen)
+{
+	t_list		*list;
+	t_player	*enemy;
+
+	list = screen->enemies;
+	while (list)
+	{
+		enemy = list->content;
+		if (screen->player->x == enemy->dest->x
+			&& screen->player->y == enemy->dest->y
+			&& enemy->px_move <= 32)
+		{
+			ft_printf("Game over. You lost!\n");
+			return (1);
+		}
+		list = list->next;
+	}
+	return (0);
+}
+
 void	move_player(t_screen *screen)
 {
 	t_image		*asset;
@@ -63,15 +84,17 @@ void	move_player(t_screen *screen)
 	if (screen->player->direction == 2)
 		screen->big_picture->offy += screen->player->px_move;
 	if (screen->player->direction == 0)
-		screen->big_picture->offy -= screen->player->px_move;
-	if (screen->player->direction == 1)
 		screen->big_picture->offx -= screen->player->px_move;
+	if (screen->player->direction == 1)
+		screen->big_picture->offy -= screen->player->px_move;
 	if (screen->player->direction == 3)
 		screen->big_picture->offx += screen->player->px_move;
 	asset->offx = screen->player->direction * asset->wid_per_frame;
 	asset->offy = (screen->player->frame % 4) * asset->wid_per_frame;
 	screen->player->frame++;
 	overwrite_asset(screen->big_picture, asset);
+	if (check_enemy_touch(screen))
+		clean_exit(screen);
 	if (screen->count_collectible == 0
 		&& screen->map[screen->player->dest->y][screen->player->dest->x] == 'E'
 		&& screen->player->px_move == 0)
@@ -94,7 +117,7 @@ void	move_enemy(t_screen *screen)
 	screen->big_picture->offy = enemy->y * TILE_SIZE;
 	if (enemy->direction)
 	{
-		enemy->px_move -= 8;
+		enemy->px_move -= 4;
 		if (enemy->direction == 2)
 			screen->big_picture->offy -= enemy->px_move;
 		if (enemy->direction == -1)
@@ -107,8 +130,6 @@ void	move_enemy(t_screen *screen)
 	asset->offx = enemy->frame % 10 * asset->wid_per_frame;
 	asset->offy = 0;
 	enemy->frame++;
-ft_printf(" move des y %d, des x %d\n", enemy->y, enemy->x);
-//when changing direction to move up skips one square ?????
 	overwrite_asset(screen->big_picture, asset);
 	if (enemy->px_move == 0)
 		next_move_enemy(screen, enemy);
@@ -146,6 +167,8 @@ int	animate(t_screen *screen)
 		move_player(screen);
 	else
 	{
+		if (check_enemy_touch(screen))
+			clean_exit(screen);
 		screen->big_picture->offy = screen->player->y * TILE_SIZE + 15;
 		screen->big_picture->offx = screen->player->x * TILE_SIZE + 15;
 		overwrite_asset(screen->big_picture,

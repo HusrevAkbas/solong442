@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 23:45:14 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 10:34:27 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	set_enemy(t_screen *screen, t_image *tile)
 	enemy->frame = 0;
 	asset = screen->assets[enemy->asset];
 	asset->wid_per_frame = 64;
-	enemy->direction = 0;
 	asset->offx = 0;
 	asset->offy = 0;
 	enemy->px_move = 0;

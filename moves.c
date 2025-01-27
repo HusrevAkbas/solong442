@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   moves.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 19:11:35 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/27 10:52:19 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	move_down(t_screen *screen)
 		screen->count_collectible--;
 	}
 	player->y++;
-	player->direction = 0;
+	player->direction = 1;
 	set_commons(screen, player);
 }
 
@@ -103,7 +103,7 @@ void	move_right(t_screen *screen)
 		screen->count_collectible--;
 	}
 	player->x++;
-	player->direction = 1;
+	player->direction = 0;
 	set_commons(screen, player);
 }
 
