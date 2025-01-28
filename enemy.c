@@ -6,28 +6,33 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 11:22:22 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/28 12:15:31 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
+void	set_coords(t_image *tile, t_enemycheck *checker, t_player *enemy)
+{
+	checker->x = tile->x;
+	checker->y = tile->y;
+	enemy->x = tile->x;
+	enemy->y = tile->y;
+}
+
 void	set_enemy(t_screen *screen, t_image *tile)
 {
-	t_list		*list;
-	t_player	*enemy;
-	t_image		*asset;
+	t_list			*list;
+	t_player		*enemy;
+	t_image			*asset;
 	t_enemycheck	checker;
 
 	ft_memset(&checker, 0, sizeof(t_enemycheck));
-	checker.x = tile->x;
-	checker.y = tile->y;
 	enemy = ft_calloc(1, sizeof(t_player));
 	if (!enemy)
 		clean_exit(screen);
+	set_coords(tile, &checker, enemy);
 	enemy->direction = set_enemy_direction(screen->map, &checker);
-	enemy->x = tile->x;
-	enemy->y = tile->y;
 	enemy->asset = EYEMONSTER;
 	asset = screen->assets[enemy->asset];
 	asset->wid_per_frame = 64;
@@ -114,29 +119,3 @@ int	set_enemy_direction(char **map, t_enemycheck *checker)
 	return (checker->direction);
 }
 
-int	check_map_for_enemy(char **map)
-{
-	t_enemycheck	checker;
-
-	ft_memset(&checker, 0, sizeof(t_enemycheck));
-	checker.y = 0;
-	while (map[checker.y])
-	{
-		checker.x = 0;
-		while (map[checker.y][checker.x])
-		{
-			if (map[checker.y][checker.x] == 'F')
-				set_enemy_direction(map, &checker);
-			checker.x++;
-		}
-		checker.y++;
-	}
-//JUST TO SEE WHATS IN MAP
-int	i = 0;
-while (map[i])
-{
-	ft_printf("%s\n", map[i]);
-	i++;
-}
-	return (1);
-}

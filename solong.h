@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 11:21:10 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/28 12:12:45 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 // # include "mlx_linux/mlx.h" //for WSL2
 # include "math.h"
 # include "fcntl.h"
-//#include "limits.h"
 
 # define TILE_SIZE	63
 # define GRASS		0
@@ -28,15 +27,11 @@
 # define FENCE_PATH	"assets/fence_tiles.xpm"
 # define PEACOCK_FL	3
 # define PEACOCK_FL_PATH	"assets/Peacock-folded-tail.xpm"
-# define PEACOCK_OP	4
-# define PEACOCK_OP_PATH	"assets/Peacock-walk.xpm"
-# define BUTTERFLY	5
-# define BUTTERFLY_PATH		"assets/Yellow.xpm"
-# define EYEMONSTER	6
+# define EYEMONSTER	4
 # define EYEMONSTER_PATH	"assets/Eyemonster.xpm"
-# define COLLECTION	7
+# define COLLECTION	5
 # define COLLECTION_PATH	"assets/christmasicons.xpm"
-# define FLOWERS	8
+# define FLOWERS	6
 # define FLOWERS_PATH	"assets/flowers.xpm"
 
 typedef struct s_image
@@ -142,7 +137,10 @@ typedef struct s_enemycheck
 
 //ANIMATIONS
 int		animate(t_screen *screen);
+void	animate_collectible(t_screen *screen, t_image *image);
 void	animate_tree(t_screen *screen, t_image *image);
+int		check_enemy_touch(t_screen *screen);
+void	move_enemy(t_screen *screen);
 void	move_player(t_screen *screen);
 
 //HOOKS AND MOVES
@@ -158,9 +156,9 @@ void	next_move_enemy(t_screen *screen, t_player *enemy);
 int		run_key_hook(int keycode, t_screen *args);
 
 //ENEMY STAFF
-int	find_horizontal_space(char **map, t_enemycheck *checker);
-int	find_vertical_space(char **map, t_enemycheck *checker);
-int	set_enemy_direction(char **map, t_enemycheck *checker);
+int		find_horizontal_space(char **map, t_enemycheck *checker);
+int		find_vertical_space(char **map, t_enemycheck *checker);
+int		set_enemy_direction(char **map, t_enemycheck *checker);
 
 //IMAGE
 void	get_assets(t_screen *screen);
@@ -191,7 +189,6 @@ void	set_top_border(t_screen *screen, t_image *tile);
 void	set_bottom_border(t_screen *screen, t_image *tile);
 
 //MAP
-int		check_map_for_enemy(char **map);
 char	**clear_map(char **map, int index);
 void	find_player_coordinates(char **map, t_mapcheck *checker);
 int		is_filename_ok(char *arg);

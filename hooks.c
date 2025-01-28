@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 19:11:45 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/28 11:37:43 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ void	clean_exit(t_screen *screen)
 	if (screen->images)
 		ft_lstclear(&screen->images, &del_image);
 	clear_map(screen->map, screen->map_h - 1);
-	i = 9;
-	while (i > 0 && screen->assets[i])
+	i = 0;
+	while (screen->assets[i])
 	{
-		i--;
 		del_image(screen->assets[i]);
+		i++;
 	}
 	if (screen->enemies)
 		ft_lstclear(&screen->enemies, &del_enemy);

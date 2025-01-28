@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 13:47:06 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/28 11:53:52 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,34 +36,29 @@ void	set_bg_addr(t_bg *bg)
 
 void	get_assets(t_screen *screen)
 {
-	t_image	*img;
-	char	*pathmap[10];
+	char	*pathmap[8];
 	int		i;
 
 	pathmap[GRASS] = GRASS_PATH;
 	pathmap[TREE] = TREE_PATH;
 	pathmap[FENCE] = FENCE_PATH;
 	pathmap[PEACOCK_FL] = PEACOCK_FL_PATH;
-	pathmap[BUTTERFLY] = BUTTERFLY_PATH;
 	pathmap[EYEMONSTER] = EYEMONSTER_PATH;
 	pathmap[COLLECTION] = COLLECTION_PATH;
-	pathmap[PEACOCK_OP] = PEACOCK_OP_PATH;
 	pathmap[FLOWERS] = FLOWERS_PATH;
-	pathmap[9] = NULL;
+	pathmap[7] = NULL;
 	i = 0;
-	while (i < 9)
+	while (i < 7)
 	{
-		img = malloc(sizeof(t_image));
-		if (!img)
-			ft_printf("malloc fail in get assets");
-		ft_memset(img, 0, sizeof(t_image));
-		img->img = mlx_xpm_file_to_image(screen->mlx, pathmap[i],
-				&img->width, &img->heigth);
-		if (!img->img)
+		screen->assets[i] = ft_calloc(1, sizeof(t_image));
+		if (!screen->assets[i])
 			clean_exit(screen);
-		set_img_addr(img);
-		img->mlx = screen->mlx;
-		screen->assets[i] = img;
+		screen->assets[i]->img = mlx_xpm_file_to_image(screen->mlx, pathmap[i],
+				&screen->assets[i]->width, &screen->assets[i]->heigth);
+		if (!screen->assets[i]->img)
+			clean_exit(screen);
+		set_img_addr(screen->assets[i]);
+		screen->assets[i]->mlx = screen->mlx;
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
+/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:06 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/26 16:08:44 by husrevakbas      ###   ########.fr       */
+/*   Updated: 2025/01/28 12:12:34 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	can_be_finished(char **map, t_mapcheck *checker)
 		}
 		i++;
 	}
-	check_map_for_enemy(map_copy);
 	find_player_coordinates(map_copy, checker);
 	fill_map(map_copy, checker->line, checker->width);
 	res = check_map_after_fill_map(map_copy);
