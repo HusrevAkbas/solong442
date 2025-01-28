@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 11:47:19 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/28 11:24:31 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,12 @@ int	check_enemy_touch(t_screen *screen)
 	while (list)
 	{
 		enemy = list->content;
-		if (screen->player->x == enemy->dest->x
+		if ((screen->player->x == enemy->dest->x
 			&& screen->player->y == enemy->dest->y
-			&& enemy->px_move <= 32)
+			&& enemy->px_move <= 40)
+			|| (enemy->start && screen->player->x == enemy->start->x
+			&& screen->player->y == enemy->start->y
+			&& enemy->px_move > 40))
 		{
 			ft_printf("Game over. You lost!\n");
 			return (1);
@@ -107,32 +110,36 @@ void	move_player(t_screen *screen)
 void	move_enemy(t_screen *screen)
 {
 	t_image		*asset;
-	t_list		*node;
+	t_list		*list;
 	t_player	*enemy;
 
-	node = screen->enemies;
-	enemy = node->content;
-	if (enemy->px_move == 0)
-		next_move_enemy(screen, enemy);
-	asset = screen->assets[enemy->asset];
-	screen->big_picture->offx = enemy->x * TILE_SIZE;
-	screen->big_picture->offy = enemy->y * TILE_SIZE;
-	if (enemy->direction)
+	list = screen->enemies;
+	while (list)
 	{
-		enemy->px_move -= 4;
-		if (enemy->direction == 2)
-			screen->big_picture->offy -= enemy->px_move;
-		if (enemy->direction == -1)
-			screen->big_picture->offx += enemy->px_move;
-		if (enemy->direction == -2)
-			screen->big_picture->offy += enemy->px_move;
-		if (enemy->direction == 1)
-			screen->big_picture->offx -= enemy->px_move;
+		enemy = list->content;
+		if (enemy->px_move == 0)
+			next_move_enemy(screen, enemy);
+		asset = screen->assets[enemy->asset];
+		screen->big_picture->offx = enemy->x * TILE_SIZE;
+		screen->big_picture->offy = enemy->y * TILE_SIZE;
+		if (enemy->direction)
+		{
+			enemy->px_move -= 4;
+			if (enemy->direction == 2)
+				screen->big_picture->offy -= enemy->px_move;
+			if (enemy->direction == -1)
+				screen->big_picture->offx += enemy->px_move;
+			if (enemy->direction == -2)
+				screen->big_picture->offy += enemy->px_move;
+			if (enemy->direction == 1)
+				screen->big_picture->offx -= enemy->px_move;
+		}
+		asset->offx = enemy->frame % 10 * asset->wid_per_frame;
+		asset->offy = 0;
+		enemy->frame++;
+		overwrite_asset(screen->big_picture, asset);
+		list = list->next;
 	}
-	asset->offx = enemy->frame % 10 * asset->wid_per_frame;
-	asset->offy = 0;
-	enemy->frame++;
-	overwrite_asset(screen->big_picture, asset);
 }
 
 t_list	*set_next_frame(t_screen *screen, t_list *list)

@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 13:25:22 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/28 11:21:10 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int		run_key_hook(int keycode, t_screen *args);
 //ENEMY STAFF
 int	find_horizontal_space(char **map, t_enemycheck *checker);
 int	find_vertical_space(char **map, t_enemycheck *checker);
-int	set_enemy_direction(t_enemycheck *checker);
+int	set_enemy_direction(char **map, t_enemycheck *checker);
 
 //IMAGE
 void	get_assets(t_screen *screen);

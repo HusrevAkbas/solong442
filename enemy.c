@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 15:48:10 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/27 13:32:19 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/28 11:22:22 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,15 @@ void	set_enemy(t_screen *screen, t_image *tile)
 	ft_memset(&checker, 0, sizeof(t_enemycheck));
 	checker.x = tile->x;
 	checker.y = tile->y;
-	checker.up = find_horizontal_space(screen->map, &checker);
-	checker.left = find_vertical_space(screen->map, &checker);
 	enemy = ft_calloc(1, sizeof(t_player));
 	if (!enemy)
 		clean_exit(screen);
-	enemy->direction = set_enemy_direction(&checker);
+	enemy->direction = set_enemy_direction(screen->map, &checker);
 	enemy->x = tile->x;
 	enemy->y = tile->y;
 	enemy->asset = EYEMONSTER;
-	enemy->frame = 0;
 	asset = screen->assets[enemy->asset];
 	asset->wid_per_frame = 64;
-	asset->offx = 0;
-	asset->offy = 0;
-	enemy->px_move = 0;
 	enemy->dest = tile;
 	overwrite_asset(tile, asset);
 	list = ft_lstnew(enemy);
@@ -106,8 +100,11 @@ int	find_vertical_space(char **map, t_enemycheck *checker)
 	return (checker->left);
 }
 
-int	set_enemy_direction(t_enemycheck *checker)
+int	set_enemy_direction(char **map, t_enemycheck *checker)
 {
+
+	find_horizontal_space(map, checker);
+	find_vertical_space(map, checker);
 	if (checker->left == 0 && checker->up == 0)
 		checker->direction = 0;
 	else if (checker->left >= checker->up)
@@ -115,43 +112,6 @@ int	set_enemy_direction(t_enemycheck *checker)
 	else
 		checker->direction = 2;
 	return (checker->direction);
-}
-
-void	fill_enemy_path(char **map, t_enemycheck *checker)
-{
-	int	i;
-
-	checker->direction = set_enemy_direction(checker);
-	if (checker->direction == 0)
-		return ;
-	if (checker->direction == 1 && checker->left_plus < 2)
-	{
-		i = checker->y;
-		while (map[checker->y][i - 1] == '0')
-			i--;
-		while (map[checker->y][i])
-		{
-			if (map[checker->y][i] == '0' || map[checker->y][i] == 'F')
-				map[checker->y][i] = '1';
-			else
-				break;
-			i++;
-		}
-	}
-	if (checker->direction == 2 && checker->up_plus < 2)
-	{
-		i = checker->x;
-		while (map[i - 1][checker->x] == '0')
-			i--;
-		while (map[i][checker->x])
-		{
-			if (map[i][checker->x] == '0' || map[i][checker->x] == 'F')
-				map[i][checker->x] = '1';
-			else
-				break;
-			i++;
-		}
-	}
 }
 
 int	check_map_for_enemy(char **map)
@@ -166,21 +126,17 @@ int	check_map_for_enemy(char **map)
 		while (map[checker.y][checker.x])
 		{
 			if (map[checker.y][checker.x] == 'F')
-			{
-				checker.up = find_horizontal_space(map, &checker);
-				checker.left = find_vertical_space(map, &checker);
-				fill_enemy_path(map, &checker);
-			}
+				set_enemy_direction(map, &checker);
 			checker.x++;
 		}
 		checker.y++;
 	}
+//JUST TO SEE WHATS IN MAP
 int	i = 0;
 while (map[i])
 {
 	ft_printf("%s\n", map[i]);
 	i++;
 }
-
 	return (1);
 }
