@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:03:03 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 12:12:45 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/28 14:18:04 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_image
 	void			*img;
 	void			*mlx;
 	struct s_bg		*bg;
-	int				asset;	//player, collectible, passable, unpassable
+	int				asset;	//player, collectible, wall, enemy etc
 	unsigned int	frame;
 	int				wid_per_frame;
 	int				width;
@@ -70,7 +70,7 @@ typedef struct s_bg
 
 typedef struct s_player
 {
-	int				asset;	//player, collectible, passable, unpassable
+	int				asset;
 	unsigned int	frame;
 	int				wid_per_frame;
 	int				width;
