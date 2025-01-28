@@ -1,45 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fence_corners.c                                    :+:      :+:    :+:   */
+/*   fence_borders.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: husrevakbas <husrevakbas@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:06:07 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 12:24:21 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/26 15:20:51 by husrevakbas      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solong.h"
 
-void	set_top_left_corner(t_screen *screen, t_image *tile)
-{
-	t_image	*asset;
-
-	tile->asset = FENCE;
-	asset = screen->assets[tile->asset];
-	asset->wid_per_frame = 32;
-	overwrite_bg(tile);
-	tile->offx = 32;
-	tile->offy = 32;
-	overwrite_asset(tile, asset);
-}
-
-void	set_top_right_corner(t_screen *screen, t_image *tile)
-{
-	t_image	*asset;
-
-	tile->asset = FENCE;
-	asset = screen->assets[tile->asset];
-	overwrite_bg(tile);
-	tile->offx = 0;
-	tile->offy = 32;
-	asset->offx = 64;
-	asset->wid_per_frame = 32;
-	overwrite_asset(tile, asset);
-}
-
-void	set_bottom_left_corner(t_screen *screen, t_image *tile)
+void	set_left_border(t_screen *screen, t_image *tile)
 {
 	t_image	*asset;
 
@@ -48,13 +21,13 @@ void	set_bottom_left_corner(t_screen *screen, t_image *tile)
 	overwrite_bg(tile);
 	tile->offx = 32;
 	tile->offy = 0;
-	asset->offx = 0;
-	asset->offy = 64;
+	asset->offx = 96;
+	asset->offy = 1;
 	asset->wid_per_frame = 32;
-	overwrite_asset(tile, asset);
+	overwrite(tile, asset);
 }
 
-void	set_bottom_right_corner(t_screen *screen, t_image *tile)
+void	set_rigth_border(t_screen *screen, t_image *tile)
 {
 	t_image	*asset;
 
@@ -63,20 +36,38 @@ void	set_bottom_right_corner(t_screen *screen, t_image *tile)
 	overwrite_bg(tile);
 	tile->offx = 0;
 	tile->offy = 0;
-	asset->offx = 64;
-	asset->offy = 64;
+	asset->offx = 96;
+	asset->offy = 1;
 	asset->wid_per_frame = 32;
-	overwrite_asset(tile, asset);
+	overwrite(tile, asset);
 }
 
-void	put_counter(t_screen *screen)
+void	set_top_border(t_screen *screen, t_image *tile)
 {
-	char	*moves;
+	t_image	*asset;
 
-	moves = ft_itoa(screen->count_moves);
-	if (!moves)
-		return ;
-	mlx_string_put(screen->mlx, screen->win, 68, 24, 0xffffff, "Your moves: ");
-	mlx_string_put(screen->mlx, screen->win, 136, 24, 0xffffff, moves);
-	free(moves);
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite_bg(tile);
+	tile->offx = 0;
+	tile->offy = 32;
+	asset->offx = 23;
+	asset->offy = 96;
+	asset->wid_per_frame = 32;
+	overwrite(tile, asset);
+}
+
+void	set_bottom_border(t_screen *screen, t_image *tile)
+{
+	t_image	*asset;
+
+	tile->asset = FENCE;
+	asset = screen->assets[tile->asset];
+	overwrite_bg(tile);
+	tile->offx = 0;
+	tile->offy = 0;
+	asset->offx = 8;
+	asset->offy = 96;
+	asset->wid_per_frame = 32;
+	overwrite(tile, asset);
 }
