@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 12:01:33 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/28 14:09:10 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,29 @@ t_list	*set_next_frame(t_screen *screen, t_list *list)
 
 int	animate(t_screen *screen)
 {
-	t_list	*list;
+	t_list				*list;
+	static unsigned int	i;
 
-	list = screen->images;
-	while (list)
-		list = set_next_frame(screen, list);
-	if (screen->player->px_move)
-		move_player(screen);
-	else
+	if (i % 7000 == 0)
 	{
-		if (check_enemy_touch(screen))
-			clean_exit(screen);
-		screen->big_picture->offy = screen->player->y * TILE_SIZE + 15;
-		screen->big_picture->offx = screen->player->x * TILE_SIZE + 15;
-		overwrite_asset(screen->big_picture,
-			screen->assets[screen->player->asset]);
+		list = screen->images;
+		while (list)
+			list = set_next_frame(screen, list);
+		if (screen->player->px_move)
+			move_player(screen);
+		else
+		{
+			if (check_enemy_touch(screen))
+				clean_exit(screen);
+			screen->big_picture->offy = screen->player->y * TILE_SIZE + 15;
+			screen->big_picture->offx = screen->player->x * TILE_SIZE + 15;
+			overwrite_asset(screen->big_picture,
+				screen->assets[screen->player->asset]);
+		}
+		move_enemy(screen);
+		mlx_put_image_to_window(screen->mlx, screen->win,
+			screen->big_picture->img, 0, 0);
+		put_counter(screen);
 	}
-	move_enemy(screen);
-	mlx_put_image_to_window(screen->mlx, screen->win,
-		screen->big_picture->img, 0, 0);
-	put_counter(screen);
-	usleep(80000);
-	return (0);
+	return (i++);
 }
