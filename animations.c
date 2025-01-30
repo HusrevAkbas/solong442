@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 20:18:32 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 14:09:10 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:31:17 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	animate(t_screen *screen)
 	t_list				*list;
 	static unsigned int	i;
 
-	if (i % 7000 == 0)
+	if (i % 10000 == 0)
 	{
 		list = screen->images;
 		while (list)
