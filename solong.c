@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 11:01:55 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/30 11:29:22 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:39:52 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char **argv)
 	t_screen	screen;
 
 	if (argc != 2)
-		return (ft_printf("Error\nYou need to set a map\n"));
+		return (ft_printf("Error\nSet a map with extension '.ber'\n"));
 	ft_memset(&screen, 0, sizeof(t_screen));
 	screen.map = set_map(argv[1], &screen.count_collectible);
 	if (!screen.map)
