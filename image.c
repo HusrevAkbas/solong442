@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:36:00 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 12:24:14 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/01/30 11:21:09 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ t_bg	*new_bg(t_screen *screen, int width, int heigth)
 
 	bg = malloc(sizeof(t_bg));
 	if (!bg)
-		ft_printf("malloc fail in 'new bg'");
+		clean_exit(screen);
 	ft_memset(bg, 0, sizeof(t_bg));
 	bg->img = mlx_new_image(screen->mlx, width, heigth);
 	if (!bg->img)
-		ft_printf("malloc fail in 'new bg' bg img");
+		clean_exit(screen);
 	bg->heigth = heigth;
 	bg->width = width;
 	set_bg_addr(bg);
@@ -40,11 +40,11 @@ t_image	*new_tile(t_screen *screen, int width, int heigth)
 
 	tile = malloc(sizeof(t_image));
 	if (!tile)
-		ft_printf("malloc fail in new tile");
+		clean_exit(screen);
 	ft_memset(tile, 0, sizeof(t_image));
 	tile->img = mlx_new_image(screen->mlx, width, heigth);
 	if (!tile->img)
-		ft_printf("malloc fail in new tile tile img");
+		clean_exit(screen);
 	tile->heigth = heigth;
 	tile->width = width;
 	tile->offx = 0;
@@ -109,7 +109,7 @@ void	put_images(t_screen *screen)
 	screen->big_picture->img = mlx_new_image(screen->mlx,
 			TILE_SIZE * screen->map_w, TILE_SIZE * screen->map_h);
 	if (!screen->big_picture->img)
-		ft_printf("I can't see the big picture");
+		clean_exit(screen);
 	set_img_addr(screen->big_picture);
 	screen->big_picture->heigth = TILE_SIZE * screen->map_h;
 	screen->big_picture->width = TILE_SIZE * screen->map_w;
