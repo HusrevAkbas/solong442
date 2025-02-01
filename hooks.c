@@ -6,7 +6,7 @@
 /*   By: huakbas <huakbas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 11:41:51 by huakbas           #+#    #+#             */
-/*   Updated: 2025/01/28 11:37:43 by huakbas          ###   ########.fr       */
+/*   Updated: 2025/02/01 16:51:19 by huakbas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	del_image(void *image)
 	t_image	*img;
 
 	img = image;
-	mlx_destroy_image(img->mlx, img->img);
+	if (img->img)
+		mlx_destroy_image(img->mlx, img->img);
 	if (img->bg)
 	{
 		mlx_destroy_image(img->mlx, img->bg->img);
