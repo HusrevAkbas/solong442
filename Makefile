@@ -42,9 +42,9 @@ fclean: clean
 re: fclean all bonus
 
 val:
-	@valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all ./${NAME} 1.ber
+	@valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all ./${NAME} novem.ber
 
 fun:
-	@funcheck ./${NAME} 1.ber
+	@funcheck ./${NAME} novem.ber
 
 .PHONY: all bonus clean fclean re val fun
